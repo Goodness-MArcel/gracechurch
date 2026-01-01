@@ -67,7 +67,7 @@ export default function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              <h2 className="mb-4 section-heading text-center">About Grace of God Church</h2>
+              <h2 className="mb-4 section-heading text-center">About Grace of God</h2>
               <p className="lead mb-4 text-center">
                 Welcome to Grace of God Church, a vibrant community of believers committed to worship, fellowship, and service in the heart of our city.
               </p>
@@ -147,10 +147,88 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* Worship Services Section */}
       <section id="services" className="py-5 bg-light">
         <div className="container">
-          <h2>Worship Services</h2>
-          <p>Find our service schedules and join us in worship.</p>
+          <div className="text-center mb-5">
+            <h2 className="section-heading">Worship Services</h2>
+            <p className="lead">Join us for worship, fellowship, and spiritual growth. All are welcome!</p>
+          </div>
+          <div className="row">
+            <div className="col-lg-8 mx-auto">
+              <div className="row g-4">
+                <div className="col-md-6">
+                  <div className="card h-100 border-0 shadow-sm">
+                    <div className="card-body text-center">
+                      <i className="fas fa-church fa-3x golden-icon mb-3"></i>
+                      <h5 className="card-title">Sunday Morning Worship</h5>
+                      <p className="card-text">Experience powerful worship, inspiring messages, and community fellowship.</p>
+                      <div className="mt-3">
+                        <strong>Sundays at 10:00 AM</strong><br/>
+                        <small className="text-muted">Main Sanctuary</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card h-100 border-0 shadow-sm">
+                    <div className="card-body text-center">
+                      <i className="fas fa-users fa-3x golden-icon mb-3"></i>
+                      <h5 className="card-title">Sunday School</h5>
+                      <p className="card-text">Bible study and fellowship for all ages, from children to adults.</p>
+                      <div className="mt-3">
+                        <strong>Sundays at 9:00 AM</strong><br/>
+                        <small className="text-muted">Classrooms & Fellowship Hall</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card h-100 border-0 shadow-sm">
+                    <div className="card-body text-center">
+                      <i className="fas fa-praying-hands fa-3x golden-icon mb-3"></i>
+                      <h5 className="card-title">Wednesday Prayer Meeting</h5>
+                      <p className="card-text">Mid-week prayer, worship, and Bible study to strengthen your faith.</p>
+                      <div className="mt-3">
+                        <strong>Wednesdays at 7:00 PM</strong><br/>
+                        <small className="text-muted">Prayer Chapel</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card h-100 border-0 shadow-sm">
+                    <div className="card-body text-center">
+                      <i className="fas fa-music fa-3x golden-icon mb-3"></i>
+                      <h5 className="card-title">Youth Worship</h5>
+                      <p className="card-text">Contemporary worship and teaching designed for teens and young adults.</p>
+                      <div className="mt-3">
+                        <strong>Fridays at 7:00 PM</strong><br/>
+                        <small className="text-muted">Youth Center</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-5">
+            <h4>Special Services</h4>
+            <div className="row mt-3">
+              <div className="col-md-4">
+                <i className="fas fa-calendar-alt golden-icon mb-2"></i>
+                <p><strong>Christmas Eve Service:</strong> December 24, 7:00 PM</p>
+              </div>
+              <div className="col-md-4">
+                <i className="fas fa-easter-egg golden-icon mb-2"></i>
+                <p><strong>Easter Sunrise Service:</strong> Easter Sunday, 6:30 AM</p>
+              </div>
+              <div className="col-md-4">
+                <i className="fas fa-heart golden-icon mb-2"></i>
+                <p><strong>Maundy Thursday:</strong> Holy Week, 7:00 PM</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section id="sermons" className="py-5">
