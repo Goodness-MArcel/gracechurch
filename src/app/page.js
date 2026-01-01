@@ -88,28 +88,28 @@ export default function Home() {
             <div className="col-lg-6">
               <div className="row">
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded">
+                  <div className="text-center p-3 bg-light rounded equal-height-card">
                     <i className="fas fa-users fa-2x golden-icon mb-2"></i>
                     <h6>Community</h6>
                     <p className="small">Building strong relationships and support networks.</p>
                   </div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded">
+                  <div className="text-center p-3 bg-light rounded equal-height-card">
                     <i className="fas fa-praying-hands fa-2x golden-icon mb-2"></i>
                     <h6>Worship</h6>
                     <p className="small">Experiencing God's presence through praise and prayer.</p>
                   </div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded">
+                  <div className="text-center p-3 bg-light rounded equal-height-card">
                     <i className="fas fa-hands-helping fa-2x golden-icon mb-2"></i>
                     <h6>Service</h6>
                     <p className="small">Serving our community with love and compassion.</p>
                   </div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded">
+                  <div className="text-center p-3 bg-light rounded equal-height-card">
                     <i className="fas fa-graduation-cap fa-2x golden-icon mb-2"></i>
                     <h6>Growth</h6>
                     <p className="small">Nurturing spiritual development and discipleship.</p>

@@ -131,4 +131,12 @@ a {
 
 .golden-icon {
   color: var(--secondary-color);
+  filter: drop-shadow(0 0 3px rgba(212, 175, 55, 0.6));
+}
+
+.equal-height-card {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
