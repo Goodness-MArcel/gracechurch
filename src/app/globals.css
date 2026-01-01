@@ -1,6 +1,12 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: #003366; /* Deep blue for trust and spirituality */
+  --secondary-color: #D4AF37; /* Gold for divinity and warmth */
+  --accent-color: #228B22; /* Green for growth and renewal */
+  --light-bg: #f8f9fa; /* Light background */
+  --dark-text: #333333; /* Dark text */
+  --background: var(--light-bg);
+  --foreground: var(--dark-text);
+  --bs-secondary: var(--secondary-color); /* Override Bootstrap secondary to gold */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,9 +25,85 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+.hero-section {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+}
+
+.hero-section .carousel-item {
+  height: 70vh;
+}
+
+.hero-section .carousel-item img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-image {
+  transition: opacity 2s ease-in;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    min-height: 100vh;
+  }
+}
+
+.hero-section .carousel-caption {
+  bottom: 20%;
+  text-align: center;
+}
+
+.hero-section .carousel-caption h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-section .carousel-caption p {
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-section .btn-primary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.hero-section .btn-primary:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 * {
@@ -39,4 +121,14 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Custom styles */
+.section-heading {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.golden-icon {
+  color: var(--secondary-color);
 }
