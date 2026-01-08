@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const images = [
@@ -82,36 +83,58 @@ export default function Home() {
           bottom: 0,
           background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)'
         }}>
-          <div className="text-center">
-            <h1 style={{
-              color: '#2c3e50',
-              fontSize: '3.5rem',
-              fontWeight: '700',
-              textShadow: '2px 2px 4px rgba(255,255,255,0.9)',
-              marginBottom: '1rem'
-            }}>
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            <motion.h1
+              style={{
+                color: '#2c3e50',
+                fontSize: '3.5rem',
+                fontWeight: '700',
+                textShadow: '2px 2px 4px rgba(255,255,255,0.9)',
+                marginBottom: '1rem'
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            >
               Welcome to Grace of God Church
-            </h1>
-            <p style={{
-              color: '#6c757d',
-              fontSize: '1.4rem',
-              fontWeight: '500',
-              textShadow: '1px 1px 2px rgba(255,255,255,0.9)',
-              marginBottom: '2rem'
-            }}>
+            </motion.h1>
+            <motion.p
+              style={{
+                color: '#6c757d',
+                fontSize: '1.4rem',
+                fontWeight: '500',
+                textShadow: '1px 1px 2px rgba(255,255,255,0.9)',
+                marginBottom: '2rem'
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
               A place of worship, community, and faith.
-            </p>
-            <div className="d-flex gap-3 justify-content-center">
+            </motion.p>
+            <motion.div
+              className="d-flex flex-column flex-sm-row gap-2 gap-sm-3 justify-content-center align-items-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.5 }}
+            >
               <a href="#about" className="btn" style={{
                 background: 'linear-gradient(135deg, #d4af37, #ffd700)',
                 border: 'none',
                 color: '#2c3e50',
                 fontWeight: '600',
-                padding: '12px 30px',
+                padding: '10px 20px',
                 borderRadius: '25px',
                 boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)',
                 textDecoration: 'none',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
               }}>
                 <i className="fas fa-church me-2"></i>Learn More
               </a>
@@ -120,30 +143,44 @@ export default function Home() {
                 border: '2px solid #d4af37',
                 color: '#d4af37',
                 fontWeight: '600',
-                padding: '12px 30px',
+                padding: '10px 20px',
                 borderRadius: '25px',
                 textDecoration: 'none',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
               }}>
                 <i className="fas fa-calendar-alt me-2"></i>View Services
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* About Section */}
       <section id="about" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>About Grace of God</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               Welcome to Grace of God Church, a vibrant community of believers committed to worship, fellowship, and service in the heart of our city.
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
           <div className="row">
-            <div className="col-lg-6">
+            <motion.div
+              className="col-lg-6"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <div className="bg-white rounded-3 shadow-sm p-4 mb-4">
                 <p style={{color: '#6c757d', lineHeight: '1.6', fontSize: '1.1rem'}}>
                   Founded in 1995, our church has grown from a small gathering to a thriving congregation of over 500 members. We are dedicated to spreading the love of Christ through compassionate outreach, spiritual growth, and meaningful connections.
@@ -191,11 +228,21 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-6">
+            </motion.div>
+            <motion.div
+              className="col-lg-6"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
               <div className="row">
                 <div className="col-6 mb-3">
-                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-3 h-100 text-center"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="mb-2" style={{
                       width: '50px',
                       height: '50px',
@@ -212,10 +259,14 @@ export default function Home() {
                     </div>
                     <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Community</h6>
                     <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Building strong relationships and support networks.</p>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-3 h-100 text-center"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="mb-2" style={{
                       width: '50px',
                       height: '50px',
@@ -232,10 +283,14 @@ export default function Home() {
                     </div>
                     <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Worship</h6>
                     <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Experiencing God's presence through praise and prayer.</p>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-3 h-100 text-center"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="mb-2" style={{
                       width: '50px',
                       height: '50px',
@@ -252,10 +307,14 @@ export default function Home() {
                     </div>
                     <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Service</h6>
                     <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Serving our community with love and compassion.</p>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-3 h-100 text-center"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="mb-2" style={{
                       width: '50px',
                       height: '50px',
@@ -272,17 +331,30 @@ export default function Home() {
                     </div>
                     <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Growth</h6>
                     <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Nurturing spiritual development and discipleship.</p>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="row mt-5">
-            <div className="col-12 text-center">
+            <motion.div
+              className="col-12 text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <h3 style={{color: '#2c3e50', fontWeight: '700', marginBottom: '3rem'}}>Our Core Values</h3>
               <div className="row mt-4">
                 <div className="col-md-3 mb-4">
-                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-4 h-100 text-center"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                  >
                     <div className="mb-3" style={{
                       width: '70px',
                       height: '70px',
@@ -299,10 +371,17 @@ export default function Home() {
                     </div>
                     <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Biblical Truth</h5>
                     <p style={{color: '#6c757d', lineHeight: '1.6'}}>Grounded in God's Word as our foundation.</p>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-md-3 mb-4">
-                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-4 h-100 text-center"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                  >
                     <div className="mb-3" style={{
                       width: '70px',
                       height: '70px',
@@ -319,10 +398,17 @@ export default function Home() {
                     </div>
                     <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Love & Grace</h5>
                     <p style={{color: '#6c757d', lineHeight: '1.6'}}>Extending God's love to all people.</p>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-md-3 mb-4">
-                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-4 h-100 text-center"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                  >
                     <div className="mb-3" style={{
                       width: '70px',
                       height: '70px',
@@ -339,10 +425,17 @@ export default function Home() {
                     </div>
                     <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Unity</h5>
                     <p style={{color: '#6c757d', lineHeight: '1.6'}}>Working together in harmony and purpose.</p>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="col-md-3 mb-4">
-                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                  <motion.div
+                    className="bg-white rounded-3 shadow-sm p-4 h-100 text-center"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                  >
                     <div className="mb-3" style={{
                       width: '70px',
                       height: '70px',
@@ -359,30 +452,48 @@ export default function Home() {
                     </div>
                     <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Growth</h5>
                     <p style={{color: '#6c757d', lineHeight: '1.6'}}>Continuously growing in faith and knowledge.</p>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
       {/* Worship Services Section */}
       <section id="services" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Worship Services</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               Join us for worship, fellowship, and spiritual growth. All are welcome!
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
           <div className="row">
-            <div className="col-lg-10 mx-auto">
+            <motion.div
+              className="col-lg-10 mx-auto"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <div className="bg-white rounded-3 shadow-sm p-4">
                 <h4 className="text-center mb-4" style={{color: '#2c3e50', fontWeight: '600'}}>Weekly Service Schedule</h4>
                 <div className="row">
                   <div className="col-md-6">
-                    <div className="d-flex align-items-center mb-4">
+                    <motion.div
+                      className="d-flex align-items-center mb-4"
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                      viewport={{ once: true }}
+                    >
                       <div className="me-3" style={{
                         width: '50px',
                         height: '50px',
@@ -402,8 +513,14 @@ export default function Home() {
                         <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>10:00 AM</strong> - Morning Worship</p>
                         <small style={{color: '#6c757d'}}>Main Sanctuary & Classrooms</small>
                       </div>
-                    </div>
-                    <div className="d-flex align-items-center mb-4">
+                    </motion.div>
+                    <motion.div
+                      className="d-flex align-items-center mb-4"
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.4 }}
+                      viewport={{ once: true }}
+                    >
                       <div className="me-3" style={{
                         width: '50px',
                         height: '50px',
@@ -422,10 +539,16 @@ export default function Home() {
                         <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>7:00 PM</strong> - Prayer Meeting & Bible Study</p>
                         <small style={{color: '#6c757d'}}>Prayer Chapel</small>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                   <div className="col-md-6">
-                    <div className="d-flex align-items-center mb-4">
+                    <motion.div
+                      className="d-flex align-items-center mb-4"
+                      initial={{ opacity: 0, x: 30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.5 }}
+                      viewport={{ once: true }}
+                    >
                       <div className="me-3" style={{
                         width: '50px',
                         height: '50px',
@@ -444,8 +567,14 @@ export default function Home() {
                         <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>7:00 PM</strong> - Youth Worship & Fellowship</p>
                         <small style={{color: '#6c757d'}}>Youth Center</small>
                       </div>
-                    </div>
-                    <div className="d-flex align-items-center mb-4">
+                    </motion.div>
+                    <motion.div
+                      className="d-flex align-items-center mb-4"
+                      initial={{ opacity: 0, x: 30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.6 }}
+                      viewport={{ once: true }}
+                    >
                       <div className="me-3" style={{
                         width: '50px',
                         height: '50px',
@@ -465,15 +594,22 @@ export default function Home() {
                         <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>Easter Sunrise:</strong> Easter Sunday, 6:30 AM</p>
                         <small style={{color: '#6c757d'}}>Various locations</small>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="row mt-5">
             <div className="col-md-4 text-center mb-4">
-              <div className="bg-white rounded-3 shadow-sm p-4 h-100">
+              <motion.div
+                className="bg-white rounded-3 shadow-sm p-4 h-100"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="mb-3" style={{
                   width: '70px',
                   height: '70px',
@@ -490,10 +626,17 @@ export default function Home() {
                 </div>
                 <h5 style={{color: '#2c3e50', fontWeight: '600', marginBottom: '1rem'}}>Traditional Worship</h5>
                 <p style={{color: '#6c757d', lineHeight: '1.6'}}>Experience hymns, liturgy, and sacred music in our main sanctuary.</p>
-              </div>
+              </motion.div>
             </div>
             <div className="col-md-4 text-center mb-4">
-              <div className="bg-white rounded-3 shadow-sm p-4 h-100">
+              <motion.div
+                className="bg-white rounded-3 shadow-sm p-4 h-100"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="mb-3" style={{
                   width: '70px',
                   height: '70px',
@@ -510,10 +653,17 @@ export default function Home() {
                 </div>
                 <h5 style={{color: '#2c3e50', fontWeight: '600', marginBottom: '1rem'}}>Contemporary Worship</h5>
                 <p style={{color: '#6c757d', lineHeight: '1.6'}}>Modern praise songs and worship in our youth center.</p>
-              </div>
+              </motion.div>
             </div>
             <div className="col-md-4 text-center mb-4">
-              <div className="bg-white rounded-3 shadow-sm p-4 h-100">
+              <motion.div
+                className="bg-white rounded-3 shadow-sm p-4 h-100"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="mb-3" style={{
                   width: '70px',
                   height: '70px',
@@ -530,7 +680,7 @@ export default function Home() {
                 </div>
                 <h5 style={{color: '#2c3e50', fontWeight: '600', marginBottom: '1rem'}}>Community Focus</h5>
                 <p style={{color: '#6c757d', lineHeight: '1.6'}}>Building relationships through fellowship and shared faith.</p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -538,16 +688,28 @@ export default function Home() {
       {/* Sermons Section */}
       <section id="sermons" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Sermons</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               Listen to our latest messages and grow in your faith journey.
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
 
           {/* Featured Sermon Banner */}
-          <div className="row mb-5">
+          <motion.div
+            className="row mb-5"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             <div className="col-12">
               <div className="bg-white rounded-3 shadow-lg overflow-hidden">
                 <div className="row g-0">
@@ -636,16 +798,30 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Recent Sermons */}
-          <div className="row">
+          <motion.div
+            className="row"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             <div className="col-12 text-center mb-4">
               <h4 style={{color: '#2c3e50', fontWeight: '600'}}>Recent Sermons</h4>
             </div>
-          </div>
+          </motion.div>
           <div className="row g-4">
-            <div className="col-lg-4 col-md-6">
+            {/* Sermon Card 1 */}
+            <motion.div
+              className="col-lg-4 col-md-6"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+            >
               <div className="sermon-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
                 <div className="sermon-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
                   <h6 className="mb-1" style={{fontWeight: '600'}}>The Power of Prayer</h6>
@@ -676,8 +852,17 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
+            </motion.div>
+
+            {/* Sermon Card 2 */}
+            <motion.div
+              className="col-lg-4 col-md-6"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+            >
               <div className="sermon-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
                 <div className="sermon-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
                   <h6 className="mb-1" style={{fontWeight: '600'}}>Love Your Neighbor</h6>
@@ -708,8 +893,17 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
+            </motion.div>
+
+            {/* Sermon Card 3 */}
+            <motion.div
+              className="col-lg-4 col-md-6"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+            >
               <div className="sermon-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
                 <div className="sermon-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
                   <h6 className="mb-1" style={{fontWeight: '600'}}>Growing in Grace</h6>
@@ -740,11 +934,17 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Sermon Archive Link */}
-          <div className="text-center mt-5">
+          <motion.div
+            className="text-center mt-5"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            viewport={{ once: true }}
+          >
             <button className="btn px-4 py-3" style={{
               background: 'linear-gradient(135deg, #d4af37, #ffd700)',
               border: 'none',
@@ -756,23 +956,35 @@ export default function Home() {
             }}>
               <i className="fas fa-archive me-2"></i>View Complete Sermon Archive
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
       {/* Upcoming Events Section */}
       <section id="events" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Upcoming Events</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               Join us for worship, fellowship, and community activities
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
 
           <div className="row g-4">
             {/* Christmas Eve Service */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
               <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
                 <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
                   <h5 className="mb-1" style={{fontWeight: '600'}}>Christmas Eve Service</h5>
@@ -822,7 +1034,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Choir Performance */}
             <div className="col-lg-6 col-xl-4">
@@ -1110,7 +1322,13 @@ export default function Home() {
       {/* Ministries Section */}
       <section id="ministries" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Our Ministries</h2>
             <p className="lead" style={{color: '#6c757d', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto'}}>
               Discover our various ministries and find your place to serve and grow in faith.
@@ -1118,11 +1336,18 @@ export default function Home() {
             <div className="mt-4">
               <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
             </div>
-          </div>
+          </motion.div>
 
           <div className="row g-4">
             {/* Children's Ministry */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{minHeight: '350px'}}>
                 <div className="ministry-bg" style={{
                   backgroundImage: 'url(https://images.pexels.com/photos/395132/pexels-photo-395132.jpeg?auto=compress&cs=tinysrgb&w=800)',
@@ -1151,10 +1376,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Youth Ministry */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{minHeight: '350px'}}>
                 <div className="ministry-bg" style={{
                   backgroundImage: 'url(https://images.pexels.com/photos/159304/network-cable-ethernet-computer-159304.jpeg?auto=compress&cs=tinysrgb&w=800)',
@@ -1183,10 +1415,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Worship Ministry */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{minHeight: '350px'}}>
                 <div className="ministry-bg" style={{
                   backgroundImage: 'url(https://images.pexels.com/photos/169490/pexels-photo-169490.jpeg?auto=compress&cs=tinysrgb&w=800)',
@@ -1215,10 +1454,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Outreach Ministry */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{minHeight: '350px'}}>
                 <div className="ministry-bg" style={{
                   backgroundImage: 'url(https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800)',
@@ -1247,10 +1493,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Prayer Ministry */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{minHeight: '350px'}}>
                 <div className="ministry-bg" style={{
                   backgroundImage: 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800)',
@@ -1279,10 +1532,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Adult Education */}
-            <div className="col-lg-6 col-xl-4">
+            <motion.div
+              className="col-lg-6 col-xl-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{minHeight: '350px'}}>
                 <div className="ministry-bg" style={{
                   backgroundImage: 'url(https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=800)',
@@ -1311,10 +1571,16 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="text-center mt-5">
+          <motion.div
+            className="text-center mt-5"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
             <div className="mb-4">
               <h3 style={{color: '#2c3e50', fontWeight: '600'}}>Ready to Get Involved?</h3>
               <p style={{color: '#6c757d', fontSize: '1.1rem'}}>Contact us to learn more about joining a ministry and finding your place in our community.</p>
@@ -1330,26 +1596,39 @@ export default function Home() {
             }}>
               <i className="fas fa-heart me-2"></i>Get Involved Today
             </a>
-          </div>
+          </motion.div>
         </div>
       </section>
       {/* Contact Section */}
       <section id="contact" className="py-5 bg-light">
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Contact Us</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               We'd love to hear from you! Reach out with questions, prayer requests, or to get involved.
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
 
           <div className="row g-5">
             {/* Contact Information */}
             <div className="col-lg-6">
               <div className="row g-4">
                 {/* Address */}
-                <div className="col-12">
+                <motion.div
+                  className="col-12"
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="contact-card p-4 rounded-3 bg-white shadow-sm">
                     <div className="d-flex align-items-center mb-3">
                       <div className="contact-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1366,10 +1645,17 @@ export default function Home() {
                       United States
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Phone */}
-                <div className="col-12">
+                <motion.div
+                  className="col-12"
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="contact-card p-4 rounded-3 bg-white shadow-sm">
                     <div className="d-flex align-items-center mb-3">
                       <div className="contact-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1386,10 +1672,17 @@ export default function Home() {
                       <strong>Emergency:</strong> (555) 123-4569
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Email */}
-                <div className="col-12">
+                <motion.div
+                  className="col-12"
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="contact-card p-4 rounded-3 bg-white shadow-sm">
                     <div className="d-flex align-items-center mb-3">
                       <div className="contact-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1406,7 +1699,7 @@ export default function Home() {
                       <strong>Events:</strong> events@graceofgodchurch.org
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
 
@@ -1414,7 +1707,14 @@ export default function Home() {
             <div className="col-lg-6">
               <div className="row g-4">
                 {/* Service Times */}
-                <div className="col-12">
+                <motion.div
+                  className="col-12"
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="contact-card p-4 rounded-3 bg-white shadow-sm h-100">
                     <div className="d-flex align-items-center mb-4">
                       <div className="contact-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1441,10 +1741,17 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Office Hours */}
-                <div className="col-12">
+                <motion.div
+                  className="col-12"
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="contact-card p-4 rounded-3 bg-white shadow-sm">
                     <div className="d-flex align-items-center mb-4">
                       <div className="contact-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1467,116 +1774,171 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
 
           {/* Social Media & Quick Actions */}
-          <div className="row mt-5">
+          <motion.div
+            className="row mt-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             <div className="col-12 text-center">
               <h4 className="text-dark" style={{fontWeight: '600', marginBottom: '2rem'}}>Connect With Us</h4>
               <div className="d-flex justify-content-center gap-4 mb-4">
-                <a href="#" className="social-link" style={{
-                  width: '60px',
-                  height: '60px',
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#2c3e50',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
-                }}>
+                <motion.a
+                  href="#"
+                  className="social-link"
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#2c3e50',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
+                  }}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fab fa-facebook-f fa-lg"></i>
-                </a>
-                <a href="#" className="social-link" style={{
-                  width: '60px',
-                  height: '60px',
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#2c3e50',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
-                }}>
+                </motion.a>
+                <motion.a
+                  href="#"
+                  className="social-link"
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#2c3e50',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
+                  }}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fab fa-instagram fa-lg"></i>
-                </a>
-                <a href="#" className="social-link" style={{
-                  width: '60px',
-                  height: '60px',
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#2c3e50',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
-                }}>
+                </motion.a>
+                <motion.a
+                  href="#"
+                  className="social-link"
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#2c3e50',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
+                  }}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fab fa-youtube fa-lg"></i>
-                </a>
+                </motion.a>
               </div>
               <div className="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="mailto:info@graceofgodchurch.org" className="btn px-4 py-2" style={{
-                  background: 'transparent',
-                  border: '2px solid #d4af37',
-                  color: '#d4af37',
-                  fontWeight: '500',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease'
-                }}>
+                <motion.a
+                  href="mailto:info@graceofgodchurch.org"
+                  className="btn px-4 py-2"
+                  style={{
+                    background: 'transparent',
+                    border: '2px solid #d4af37',
+                    color: '#d4af37',
+                    fontWeight: '500',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fas fa-envelope me-2"></i>Send Email
-                </a>
-                <a href="tel:+15551234567" className="btn px-4 py-2" style={{
-                  background: 'transparent',
-                  border: '2px solid #d4af37',
-                  color: '#d4af37',
-                  fontWeight: '500',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease'
-                }}>
+                </motion.a>
+                <motion.a
+                  href="tel:+15551234567"
+                  className="btn px-4 py-2"
+                  style={{
+                    background: 'transparent',
+                    border: '2px solid #d4af37',
+                    color: '#d4af37',
+                    fontWeight: '500',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fas fa-phone me-2"></i>Call Now
-                </a>
-                <a href="#giving" className="btn px-4 py-2" style={{
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  border: 'none',
-                  color: '#2c3e50',
-                  fontWeight: '600',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)',
-                  transition: 'all 0.3s ease'
-                }}>
+                </motion.a>
+                <motion.a
+                  href="#giving"
+                  className="btn px-4 py-2"
+                  style={{
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    border: 'none',
+                    color: '#2c3e50',
+                    fontWeight: '600',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fas fa-heart me-2"></i>Give Online
-                </a>
+                </motion.a>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
       {/* Online Giving Section */}
       <section id="giving" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Online Giving</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto'}}>
               Your generous giving helps us spread God's love and serve our community. Give securely online today.
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
 
           <div className="row g-5 mb-5">
             {/* Why Give */}
-            <div className="col-lg-6">
+            <motion.div
+              className="col-lg-6"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+            >
               <div className="bg-white p-4 rounded-3 shadow-sm h-100">
                 <div className="d-flex align-items-center mb-4">
                   <div className="giving-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1606,10 +1968,17 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Security & Trust */}
-            <div className="col-lg-6">
+            <motion.div
+              className="col-lg-6"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+            >
               <div className="bg-white p-4 rounded-3 shadow-sm h-100">
                 <div className="d-flex align-items-center mb-4">
                   <div className="giving-icon me-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -1639,127 +2008,209 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Giving Options */}
           <div className="row g-4 mb-5">
             {/* One-Time Gift */}
-            <div className="col-lg-4 col-md-6">
+            <motion.div
+              className="col-lg-4 col-md-6"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="giving-option-card bg-white p-4 rounded-3 shadow-sm text-center h-100">
                 <div className="giving-option-icon mb-3" style={{width: '60px', height: '60px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <i className="fas fa-gift fa-lg text-dark"></i>
                 </div>
                 <h5 className="text-dark mb-3" style={{fontWeight: '600'}}>One-Time Gift</h5>
                 <p className="text-muted mb-4">Make a single donation to support our ministry work.</p>
-                <button className="btn w-100" style={{
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  border: 'none',
-                  color: '#2c3e50',
-                  fontWeight: '600',
-                  borderRadius: '25px',
-                  padding: '10px 20px'
-                }}>
+                <motion.button
+                  className="btn w-100"
+                  style={{
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    border: 'none',
+                    color: '#2c3e50',
+                    fontWeight: '600',
+                    borderRadius: '25px',
+                    padding: '10px 20px'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   Give Now
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Monthly Giving */}
-            <div className="col-lg-4 col-md-6">
+            <motion.div
+              className="col-lg-4 col-md-6"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="giving-option-card bg-white p-4 rounded-3 shadow-sm text-center h-100">
                 <div className="giving-option-icon mb-3" style={{width: '60px', height: '60px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <i className="fas fa-calendar-alt fa-lg text-dark"></i>
                 </div>
                 <h5 className="text-dark mb-3" style={{fontWeight: '600'}}>Monthly Giving</h5>
                 <p className="text-muted mb-4">Set up recurring donations to provide consistent support.</p>
-                <button className="btn w-100" style={{
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  border: 'none',
-                  color: '#2c3e50',
-                  fontWeight: '600',
-                  borderRadius: '25px',
-                  padding: '10px 20px'
-                }}>
+                <motion.button
+                  className="btn w-100"
+                  style={{
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    border: 'none',
+                    color: '#2c3e50',
+                    fontWeight: '600',
+                    borderRadius: '25px',
+                    padding: '10px 20px'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   Start Monthly
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Designated Funds */}
-            <div className="col-lg-4 col-md-6">
+            <motion.div
+              className="col-lg-4 col-md-6"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
               <div className="giving-option-card bg-white p-4 rounded-3 shadow-sm text-center h-100">
                 <div className="giving-option-icon mb-3" style={{width: '60px', height: '60px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <i className="fas fa-bullseye fa-lg text-dark"></i>
                 </div>
                 <h5 className="text-dark mb-3" style={{fontWeight: '600'}}>Designated Funds</h5>
                 <p className="text-muted mb-4">Support specific ministries or projects that matter to you.</p>
-                <button className="btn w-100" style={{
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  border: 'none',
-                  color: '#2c3e50',
-                  fontWeight: '600',
-                  borderRadius: '25px',
-                  padding: '10px 20px'
-                }}>
+                <motion.button
+                  className="btn w-100"
+                  style={{
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    border: 'none',
+                    color: '#2c3e50',
+                    fontWeight: '600',
+                    borderRadius: '25px',
+                    padding: '10px 20px'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   Choose Fund
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Other Ways to Give */}
-          <div className="bg-white p-4 rounded-3 shadow-sm mb-5">
+          <motion.div
+            className="bg-white p-4 rounded-3 shadow-sm mb-5"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h4 className="text-center text-dark mb-4" style={{fontWeight: '600'}}>Other Ways to Give</h4>
             <div className="row g-4">
-              <div className="col-md-4 text-center">
+              <motion.div
+                className="col-md-4 text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+              >
                 <div className="other-giving-icon mb-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <i className="fas fa-envelope fa-lg text-dark"></i>
                 </div>
                 <h6 className="text-dark mb-2" style={{fontWeight: '600'}}>By Mail</h6>
                 <p className="text-muted small">Send checks to:<br />Grace of God Church<br />123 Faith Street<br />Springfield, IL 62701</p>
-              </div>
-              <div className="col-md-4 text-center">
+              </motion.div>
+              <motion.div
+                className="col-md-4 text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+              >
                 <div className="other-giving-icon mb-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <i className="fas fa-church fa-lg text-dark"></i>
                 </div>
                 <h6 className="text-dark mb-2" style={{fontWeight: '600'}}>In Person</h6>
                 <p className="text-muted small">Give during Sunday services or drop off donations at the church office during business hours.</p>
-              </div>
-              <div className="col-md-4 text-center">
+              </motion.div>
+              <motion.div
+                className="col-md-4 text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+              >
                 <div className="other-giving-icon mb-3" style={{width: '50px', height: '50px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto'}}>
                   <i className="fas fa-mobile-alt fa-lg text-dark"></i>
                 </div>
                 <h6 className="text-dark mb-2" style={{fontWeight: '600'}}>Text to Give</h6>
                 <p className="text-muted small">Text "GIVE" to (555) 123-GIVE to make a quick donation via text message.</p>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Tax Information */}
-          <div className="text-center">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+            viewport={{ once: true }}
+          >
             <div className="bg-white p-4 rounded-3 shadow-sm d-inline-block">
               <h5 className="text-dark mb-3" style={{fontWeight: '600'}}>Tax Information</h5>
               <p className="text-muted mb-2">Grace of God Church is a 501(c)(3) nonprofit organization.</p>
               <p className="text-muted small mb-0">All donations are tax-deductible to the extent allowed by law. Tax ID: 12-3456789</p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
       {/* News & Announcements Section */}
       <section id="news" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <div className="text-center mb-5">
+          <motion.div
+            className="text-center mb-5"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>News & Announcements</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               Stay connected with the latest updates, events, and announcements from our church community.
             </p>
             <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
-          </div>
+          </motion.div>
 
           <div className="row g-4">
             {/* Featured Announcement */}
-            <div className="col-lg-8">
+            <motion.div
+              className="col-lg-8"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+            >
               <div className="featured-news bg-white p-4 rounded-3 shadow-sm">
                 <div className="d-flex align-items-center mb-3">
                   <div className="news-badge me-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50', padding: '5px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: '600'}}>
@@ -1776,12 +2227,25 @@ export default function Home() {
                   <small className="text-muted">Posted by Pastor John Smith</small>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Quick Announcements */}
-            <div className="col-lg-4">
+            <motion.div
+              className="col-lg-4"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <div className="quick-announcements">
-                <div className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3">
+                <motion.div
+                  className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="d-flex align-items-start">
                     <div className="announcement-icon me-3" style={{width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0'}}>
                       <i className="fas fa-calendar-alt fa-sm text-dark"></i>
@@ -1792,9 +2256,16 @@ export default function Home() {
                       <small className="text-muted">Registration opens soon!</small>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3">
+                <motion.div
+                  className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="d-flex align-items-start">
                     <div className="announcement-icon me-3" style={{width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0'}}>
                       <i className="fas fa-users fa-sm text-dark"></i>
@@ -1805,9 +2276,16 @@ export default function Home() {
                       <small className="text-muted">Starting January 15th</small>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="announcement-item bg-white p-3 rounded-3 shadow-sm">
+                <motion.div
+                  className="announcement-item bg-white p-3 rounded-3 shadow-sm"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="d-flex align-items-start">
                     <div className="announcement-icon me-3" style={{width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0'}}>
                       <i className="fas fa-heart fa-sm text-dark"></i>
@@ -1818,31 +2296,42 @@ export default function Home() {
                       <small className="text-muted">Helped 50 families this month</small>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Newsletter Signup */}
-          <div className="newsletter-signup bg-white p-4 rounded-3 shadow-sm mt-5">
+          <motion.div
+            className="newsletter-signup bg-white p-4 rounded-3 shadow-sm mt-5"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
             <div className="row align-items-center">
               <div className="col-lg-8">
                 <h4 className="text-dark mb-2" style={{fontWeight: '600'}}>Stay Updated</h4>
                 <p className="text-muted mb-0">Subscribe to our newsletter to receive weekly updates, event reminders, and inspirational messages.</p>
               </div>
               <div className="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                <button className="btn px-4 py-2" style={{
-                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
-                  border: 'none',
-                  color: '#2c3e50',
-                  fontWeight: '600',
-                  borderRadius: '25px'
-                }}>
+                <motion.button
+                  className="btn px-4 py-2"
+                  style={{
+                    background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                    border: 'none',
+                    color: '#2c3e50',
+                    fontWeight: '600',
+                    borderRadius: '25px'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <i className="fas fa-envelope me-2"></i>Subscribe Now
-                </button>
+                </motion.button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
