@@ -13,6 +13,7 @@ export default function Home() {
   const [opacity, setOpacity] = useState(1);
   const [previousImage, setPreviousImage] = useState(null);
   const [previousOpacity, setPreviousOpacity] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,6 +33,26 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, [currentImage]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <div>
@@ -53,66 +74,204 @@ export default function Home() {
           style={{ objectFit: 'cover', opacity: opacity }}
           className="hero-image"
         />
-        <div className="hero-overlay d-flex align-items-center justify-content-center text-white">
+        <div className="d-flex align-items-center justify-content-center" style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)'
+        }}>
           <div className="text-center">
-            <h1>Welcome to Grace of God Church</h1>
-            <p>A place of worship, community, and faith.</p>
-            <a href="#about" className="btn btn-primary">Learn More</a>
+            <h1 style={{
+              color: '#2c3e50',
+              fontSize: '3.5rem',
+              fontWeight: '700',
+              textShadow: '2px 2px 4px rgba(255,255,255,0.9)',
+              marginBottom: '1rem'
+            }}>
+              Welcome to Grace of God Church
+            </h1>
+            <p style={{
+              color: '#6c757d',
+              fontSize: '1.4rem',
+              fontWeight: '500',
+              textShadow: '1px 1px 2px rgba(255,255,255,0.9)',
+              marginBottom: '2rem'
+            }}>
+              A place of worship, community, and faith.
+            </p>
+            <div className="d-flex gap-3 justify-content-center">
+              <a href="#about" className="btn" style={{
+                background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                border: 'none',
+                color: '#2c3e50',
+                fontWeight: '600',
+                padding: '12px 30px',
+                borderRadius: '25px',
+                boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease'
+              }}>
+                <i className="fas fa-church me-2"></i>Learn More
+              </a>
+              <a href="#services" className="btn" style={{
+                background: 'transparent',
+                border: '2px solid #d4af37',
+                color: '#d4af37',
+                fontWeight: '600',
+                padding: '12px 30px',
+                borderRadius: '25px',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease'
+              }}>
+                <i className="fas fa-calendar-alt me-2"></i>View Services
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-5">
+      <section id="about" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>About Grace of God</h2>
+            <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
+              Welcome to Grace of God Church, a vibrant community of believers committed to worship, fellowship, and service in the heart of our city.
+            </p>
+            <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
+          </div>
           <div className="row">
             <div className="col-lg-6">
-              <h2 className="mb-4 section-heading text-center">About Grace of God</h2>
-              <p className="lead mb-4 text-center">
-                Welcome to Grace of God Church, a vibrant community of believers committed to worship, fellowship, and service in the heart of our city.
-              </p>
-              <p>
-                Founded in 1995, our church has grown from a small gathering to a thriving congregation of over 500 members. We are dedicated to spreading the love of Christ through compassionate outreach, spiritual growth, and meaningful connections.
-              </p>
-              <div className="row mt-4">
-                <div className="col-md-6">
-                  <h5><i className="fas fa-cross me-2 golden-icon"></i>Our Mission</h5>
-                  <p>To glorify God by making disciples who love Jesus, serve others, and share the Gospel.</p>
-                </div>
-                <div className="col-md-6">
-                  <h5><i className="fas fa-eye me-2 golden-icon"></i>Our Vision</h5>
-                  <p>To be a beacon of hope and transformation in our community and beyond.</p>
+              <div className="bg-white rounded-3 shadow-sm p-4 mb-4">
+                <p style={{color: '#6c757d', lineHeight: '1.6', fontSize: '1.1rem'}}>
+                  Founded in 1995, our church has grown from a small gathering to a thriving congregation of over 500 members. We are dedicated to spreading the love of Christ through compassionate outreach, spiritual growth, and meaningful connections.
+                </p>
+                <div className="row mt-4">
+                  <div className="col-md-6">
+                    <div className="text-center mb-3">
+                      <div className="mb-2" style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2c3e50',
+                        fontSize: '1.2rem',
+                        margin: '0 auto'
+                      }}>
+                        <i className="fas fa-cross"></i>
+                      </div>
+                      <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Our Mission</h6>
+                      <p style={{color: '#6c757d', fontSize: '0.9rem', lineHeight: '1.5'}}>To glorify God by making disciples who love Jesus, serve others, and share the Gospel.</p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="text-center mb-3">
+                      <div className="mb-2" style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2c3e50',
+                        fontSize: '1.2rem',
+                        margin: '0 auto'
+                      }}>
+                        <i className="fas fa-eye"></i>
+                      </div>
+                      <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Our Vision</h6>
+                      <p style={{color: '#6c757d', fontSize: '0.9rem', lineHeight: '1.5'}}>To be a beacon of hope and transformation in our community and beyond.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="col-lg-6">
               <div className="row">
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded equal-height-card">
-                    <i className="fas fa-users fa-2x golden-icon mb-2"></i>
-                    <h6>Community</h6>
-                    <p className="small">Building strong relationships and support networks.</p>
+                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                    <div className="mb-2" style={{
+                      width: '50px',
+                      height: '50px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.2rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-users"></i>
+                    </div>
+                    <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Community</h6>
+                    <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Building strong relationships and support networks.</p>
                   </div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded equal-height-card">
-                    <i className="fas fa-praying-hands fa-2x golden-icon mb-2"></i>
-                    <h6>Worship</h6>
-                    <p className="small">Experiencing God's presence through praise and prayer.</p>
+                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                    <div className="mb-2" style={{
+                      width: '50px',
+                      height: '50px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.2rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-praying-hands"></i>
+                    </div>
+                    <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Worship</h6>
+                    <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Experiencing God's presence through praise and prayer.</p>
                   </div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded equal-height-card">
-                    <i className="fas fa-hands-helping fa-2x golden-icon mb-2"></i>
-                    <h6>Service</h6>
-                    <p className="small">Serving our community with love and compassion.</p>
+                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                    <div className="mb-2" style={{
+                      width: '50px',
+                      height: '50px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.2rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-hands-helping"></i>
+                    </div>
+                    <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Service</h6>
+                    <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Serving our community with love and compassion.</p>
                   </div>
                 </div>
                 <div className="col-6 mb-3">
-                  <div className="text-center p-3 bg-light rounded equal-height-card">
-                    <i className="fas fa-graduation-cap fa-2x golden-icon mb-2"></i>
-                    <h6>Growth</h6>
-                    <p className="small">Nurturing spiritual development and discipleship.</p>
+                  <div className="bg-white rounded-3 shadow-sm p-3 h-100 text-center">
+                    <div className="mb-2" style={{
+                      width: '50px',
+                      height: '50px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.2rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-graduation-cap"></i>
+                    </div>
+                    <h6 style={{color: '#2c3e50', fontWeight: '600'}}>Growth</h6>
+                    <p style={{color: '#6c757d', fontSize: '0.85rem', lineHeight: '1.4'}}>Nurturing spiritual development and discipleship.</p>
                   </div>
                 </div>
               </div>
@@ -120,27 +279,87 @@ export default function Home() {
           </div>
           <div className="row mt-5">
             <div className="col-12 text-center">
-              <h3>Our Core Values</h3>
+              <h3 style={{color: '#2c3e50', fontWeight: '700', marginBottom: '3rem'}}>Our Core Values</h3>
               <div className="row mt-4">
-                <div className="col-md-3">
-                  <i className="fas fa-bible fa-3x golden-icon mb-3"></i>
-                  <h5>Biblical Truth</h5>
-                  <p>Grounded in God's Word as our foundation.</p>
+                <div className="col-md-3 mb-4">
+                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                    <div className="mb-3" style={{
+                      width: '70px',
+                      height: '70px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.8rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-bible"></i>
+                    </div>
+                    <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Biblical Truth</h5>
+                    <p style={{color: '#6c757d', lineHeight: '1.6'}}>Grounded in God's Word as our foundation.</p>
+                  </div>
                 </div>
-                <div className="col-md-3">
-                  <i className="fas fa-heart fa-3x golden-icon mb-3"></i>
-                  <h5>Love & Grace</h5>
-                  <p>Extending God's love to all people.</p>
+                <div className="col-md-3 mb-4">
+                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                    <div className="mb-3" style={{
+                      width: '70px',
+                      height: '70px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.8rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-heart"></i>
+                    </div>
+                    <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Love & Grace</h5>
+                    <p style={{color: '#6c757d', lineHeight: '1.6'}}>Extending God's love to all people.</p>
+                  </div>
                 </div>
-                <div className="col-md-3">
-                  <i className="fas fa-handshake fa-3x golden-icon mb-3"></i>
-                  <h5>Unity</h5>
-                  <p>Working together in harmony and purpose.</p>
+                <div className="col-md-3 mb-4">
+                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                    <div className="mb-3" style={{
+                      width: '70px',
+                      height: '70px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.8rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-handshake"></i>
+                    </div>
+                    <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Unity</h5>
+                    <p style={{color: '#6c757d', lineHeight: '1.6'}}>Working together in harmony and purpose.</p>
+                  </div>
                 </div>
-                <div className="col-md-3">
-                  <i className="fas fa-seedling fa-3x golden-icon mb-3"></i>
-                  <h5>Growth</h5>
-                  <p>Continuously growing in faith and knowledge.</p>
+                <div className="col-md-3 mb-4">
+                  <div className="bg-white rounded-3 shadow-sm p-4 h-100 text-center">
+                    <div className="mb-3" style={{
+                      width: '70px',
+                      height: '70px',
+                      background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#2c3e50',
+                      fontSize: '1.8rem',
+                      margin: '0 auto'
+                    }}>
+                      <i className="fas fa-seedling"></i>
+                    </div>
+                    <h5 style={{color: '#2c3e50', fontWeight: '600'}}>Growth</h5>
+                    <p style={{color: '#6c757d', lineHeight: '1.6'}}>Continuously growing in faith and knowledge.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,52 +367,103 @@ export default function Home() {
         </div>
       </section>
       {/* Worship Services Section */}
-      <section id="services" className="py-5 bg-light">
+      <section id="services" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="section-heading">Worship Services</h2>
-            <p className="lead">Join us for worship, fellowship, and spiritual growth. All are welcome!</p>
+            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Worship Services</h2>
+            <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
+              Join us for worship, fellowship, and spiritual growth. All are welcome!
+            </p>
+            <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
           </div>
           <div className="row">
             <div className="col-lg-10 mx-auto">
-              <div className="bg-white rounded shadow-sm p-4">
-                <h4 className="text-center mb-4">Weekly Service Schedule</h4>
+              <div className="bg-white rounded-3 shadow-sm p-4">
+                <h4 className="text-center mb-4" style={{color: '#2c3e50', fontWeight: '600'}}>Weekly Service Schedule</h4>
                 <div className="row">
                   <div className="col-md-6">
-                    <div className="d-flex align-items-center mb-3">
-                      <i className="fas fa-calendar-day fa-2x golden-icon me-3"></i>
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="me-3" style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2c3e50',
+                        fontSize: '1.2rem'
+                      }}>
+                        <i className="fas fa-calendar-day"></i>
+                      </div>
                       <div>
-                        <h6 className="mb-1">Sunday</h6>
-                        <p className="mb-1"><strong>9:00 AM</strong> - Sunday School (All Ages)</p>
-                        <p className="mb-1"><strong>10:00 AM</strong> - Morning Worship</p>
-                        <small className="text-muted">Main Sanctuary & Classrooms</small>
+                        <h6 className="mb-2" style={{color: '#2c3e50', fontWeight: '600'}}>Sunday</h6>
+                        <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>9:00 AM</strong> - Sunday School (All Ages)</p>
+                        <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>10:00 AM</strong> - Morning Worship</p>
+                        <small style={{color: '#6c757d'}}>Main Sanctuary & Classrooms</small>
                       </div>
                     </div>
-                    <div className="d-flex align-items-center mb-3">
-                      <i className="fas fa-calendar-week fa-2x golden-icon me-3"></i>
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="me-3" style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2c3e50',
+                        fontSize: '1.2rem'
+                      }}>
+                        <i className="fas fa-calendar-week"></i>
+                      </div>
                       <div>
-                        <h6 className="mb-1">Wednesday</h6>
-                        <p className="mb-1"><strong>7:00 PM</strong> - Prayer Meeting & Bible Study</p>
-                        <small className="text-muted">Prayer Chapel</small>
+                        <h6 className="mb-2" style={{color: '#2c3e50', fontWeight: '600'}}>Wednesday</h6>
+                        <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>7:00 PM</strong> - Prayer Meeting & Bible Study</p>
+                        <small style={{color: '#6c757d'}}>Prayer Chapel</small>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-6">
-                    <div className="d-flex align-items-center mb-3">
-                      <i className="fas fa-calendar-alt fa-2x golden-icon me-3"></i>
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="me-3" style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2c3e50',
+                        fontSize: '1.2rem'
+                      }}>
+                        <i className="fas fa-calendar-alt"></i>
+                      </div>
                       <div>
-                        <h6 className="mb-1">Friday</h6>
-                        <p className="mb-1"><strong>7:00 PM</strong> - Youth Worship & Fellowship</p>
-                        <small className="text-muted">Youth Center</small>
+                        <h6 className="mb-2" style={{color: '#2c3e50', fontWeight: '600'}}>Friday</h6>
+                        <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>7:00 PM</strong> - Youth Worship & Fellowship</p>
+                        <small style={{color: '#6c757d'}}>Youth Center</small>
                       </div>
                     </div>
-                    <div className="d-flex align-items-center mb-3">
-                      <i className="fas fa-star fa-2x golden-icon me-3"></i>
+                    <div className="d-flex align-items-center mb-4">
+                      <div className="me-3" style={{
+                        width: '50px',
+                        height: '50px',
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2c3e50',
+                        fontSize: '1.2rem'
+                      }}>
+                        <i className="fas fa-star"></i>
+                      </div>
                       <div>
-                        <h6 className="mb-1">Special Services</h6>
-                        <p className="mb-1"><strong>Christmas Eve:</strong> Dec 24, 7:00 PM</p>
-                        <p className="mb-1"><strong>Easter Sunrise:</strong> Easter Sunday, 6:30 AM</p>
-                        <small className="text-muted">Various locations</small>
+                        <h6 className="mb-2" style={{color: '#2c3e50', fontWeight: '600'}}>Special Services</h6>
+                        <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>Christmas Eve:</strong> Dec 24, 7:00 PM</p>
+                        <p className="mb-1" style={{color: '#2c3e50', fontWeight: '500'}}><strong>Easter Sunrise:</strong> Easter Sunday, 6:30 AM</p>
+                        <small style={{color: '#6c757d'}}>Various locations</small>
                       </div>
                     </div>
                   </div>
@@ -202,69 +472,163 @@ export default function Home() {
             </div>
           </div>
           <div className="row mt-5">
-            <div className="col-md-4 text-center">
-              <i className="fas fa-church fa-3x golden-icon mb-3"></i>
-              <h5>Traditional Worship</h5>
-              <p>Experience hymns, liturgy, and sacred music in our main sanctuary.</p>
+            <div className="col-md-4 text-center mb-4">
+              <div className="bg-white rounded-3 shadow-sm p-4 h-100">
+                <div className="mb-3" style={{
+                  width: '70px',
+                  height: '70px',
+                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#2c3e50',
+                  fontSize: '1.8rem',
+                  margin: '0 auto'
+                }}>
+                  <i className="fas fa-church"></i>
+                </div>
+                <h5 style={{color: '#2c3e50', fontWeight: '600', marginBottom: '1rem'}}>Traditional Worship</h5>
+                <p style={{color: '#6c757d', lineHeight: '1.6'}}>Experience hymns, liturgy, and sacred music in our main sanctuary.</p>
+              </div>
             </div>
-            <div className="col-md-4 text-center">
-              <i className="fas fa-music fa-3x golden-icon mb-3"></i>
-              <h5>Contemporary Worship</h5>
-              <p>Modern praise songs and worship in our youth center.</p>
+            <div className="col-md-4 text-center mb-4">
+              <div className="bg-white rounded-3 shadow-sm p-4 h-100">
+                <div className="mb-3" style={{
+                  width: '70px',
+                  height: '70px',
+                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#2c3e50',
+                  fontSize: '1.8rem',
+                  margin: '0 auto'
+                }}>
+                  <i className="fas fa-music"></i>
+                </div>
+                <h5 style={{color: '#2c3e50', fontWeight: '600', marginBottom: '1rem'}}>Contemporary Worship</h5>
+                <p style={{color: '#6c757d', lineHeight: '1.6'}}>Modern praise songs and worship in our youth center.</p>
+              </div>
             </div>
-            <div className="col-md-4 text-center">
-              <i className="fas fa-users fa-3x golden-icon mb-3"></i>
-              <h5>Community Focus</h5>
-              <p>Building relationships through fellowship and shared faith.</p>
+            <div className="col-md-4 text-center mb-4">
+              <div className="bg-white rounded-3 shadow-sm p-4 h-100">
+                <div className="mb-3" style={{
+                  width: '70px',
+                  height: '70px',
+                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#2c3e50',
+                  fontSize: '1.8rem',
+                  margin: '0 auto'
+                }}>
+                  <i className="fas fa-users"></i>
+                </div>
+                <h5 style={{color: '#2c3e50', fontWeight: '600', marginBottom: '1rem'}}>Community Focus</h5>
+                <p style={{color: '#6c757d', lineHeight: '1.6'}}>Building relationships through fellowship and shared faith.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
       {/* Sermons Section */}
-      <section id="sermons" className="py-5">
+      <section id="sermons" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="section-heading">Sermons</h2>
-            <p className="lead">Listen to our latest messages and grow in your faith journey.</p>
+            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Sermons</h2>
+            <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
+              Listen to our latest messages and grow in your faith journey.
+            </p>
+            <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
           </div>
 
           {/* Featured Sermon Banner */}
           <div className="row mb-5">
             <div className="col-12">
-              <div className="card border-0 shadow-lg">
+              <div className="bg-white rounded-3 shadow-lg overflow-hidden">
                 <div className="row g-0">
                   <div className="col-md-4">
-                    <div className="bg-primary text-white d-flex align-items-center justify-content-center h-100" style={{minHeight: '250px', backgroundImage: 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
-                      <div className="text-center">
-                        <i className="fas fa-microphone fa-4x mb-3 text-white"></i>
-                        <h5 className="text-white">Featured Sermon</h5>
+                    <div className="featured-sermon-bg d-flex align-items-center justify-content-center h-100" style={{
+                      minHeight: '280px',
+                      backgroundImage: 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      position: 'relative'
+                    }}>
+                      <div className="text-center" style={{
+                        background: 'rgba(0,0,0,0.6)',
+                        padding: '20px',
+                        borderRadius: '10px',
+                        width: '80%'
+                      }}>
+                        <i className="fas fa-microphone fa-3x mb-3" style={{color: '#ffd700'}}></i>
+                        <h5 style={{color: 'white', fontWeight: '600'}}>Featured Sermon</h5>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-8">
-                    <div className="card-body p-4">
+                    <div className="p-4">
                       <div className="d-flex align-items-center mb-3">
-                        <i className="fas fa-star golden-icon me-2"></i>
-                        <span className="badge bg-secondary">Latest Message</span>
+                        <div className="sermon-badge me-3" style={{
+                          background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                          color: '#2c3e50',
+                          padding: '5px 12px',
+                          borderRadius: '20px',
+                          fontSize: '0.8rem',
+                          fontWeight: '600'
+                        }}>
+                          LATEST MESSAGE
+                        </div>
+                        <small style={{color: '#6c757d'}}>January 8, 2026</small>
                       </div>
-                      <h3 className="card-title mb-3">Walking in Faith: Trusting God's Plan</h3>
+                      <h3 className="mb-3" style={{color: '#2c3e50', fontWeight: '600'}}>Walking in Faith: Trusting God's Plan</h3>
                       <div className="row mb-3">
                         <div className="col-sm-6">
-                          <p className="mb-1"><i className="fas fa-user golden-icon me-2"></i><strong>Speaker:</strong> Pastor John Smith</p>
-                          <p className="mb-1"><i className="fas fa-calendar golden-icon me-2"></i><strong>Date:</strong> January 1, 2026</p>
+                          <p className="mb-1" style={{color: '#6c757d'}}>
+                            <i className="fas fa-user me-2" style={{color: '#d4af37'}}></i>
+                            <strong style={{color: '#2c3e50'}}>Speaker:</strong> Pastor John Smith
+                          </p>
+                          <p className="mb-1" style={{color: '#6c757d'}}>
+                            <i className="fas fa-calendar me-2" style={{color: '#d4af37'}}></i>
+                            <strong style={{color: '#2c3e50'}}>Date:</strong> January 5, 2026
+                          </p>
                         </div>
                         <div className="col-sm-6">
-                          <p className="mb-1"><i className="fas fa-book-open golden-icon me-2"></i><strong>Scripture:</strong> Proverbs 3:5-6</p>
-                          <p className="mb-1"><i className="fas fa-clock golden-icon me-2"></i><strong>Duration:</strong> 35 minutes</p>
+                          <p className="mb-1" style={{color: '#6c757d'}}>
+                            <i className="fas fa-book-open me-2" style={{color: '#d4af37'}}></i>
+                            <strong style={{color: '#2c3e50'}}>Scripture:</strong> Proverbs 3:5-6
+                          </p>
+                          <p className="mb-1" style={{color: '#6c757d'}}>
+                            <i className="fas fa-clock me-2" style={{color: '#d4af37'}}></i>
+                            <strong style={{color: '#2c3e50'}}>Duration:</strong> 35 minutes
+                          </p>
                         </div>
                       </div>
-                      <p className="card-text">In this powerful message, Pastor John explores what it means to truly trust in God's plan for our lives, even when the path seems uncertain. Drawing from Proverbs 3:5-6, we learn practical steps to walk in faith and experience God's peace.</p>
+                      <p style={{color: '#6c757d', lineHeight: '1.6'}}>
+                        In this powerful message, Pastor John explores what it means to truly trust in God's plan for our lives, even when the path seems uncertain. Drawing from Proverbs 3:5-6, we learn practical steps to walk in faith and experience God's peace.
+                      </p>
                       <div className="mt-4">
-                        <button className="btn btn-primary me-2">
-                          <i className="fas fa-play me-1"></i>Listen Now
+                        <button className="btn me-3 px-4 py-2" style={{
+                          background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                          border: 'none',
+                          color: '#2c3e50',
+                          fontWeight: '600',
+                          borderRadius: '25px'
+                        }}>
+                          <i className="fas fa-play me-2"></i>Listen Now
                         </button>
-                        <button className="btn btn-outline-secondary">
-                          <i className="fas fa-download me-1"></i>Download
+                        <button className="btn px-4 py-2" style={{
+                          background: 'transparent',
+                          border: '2px solid #d4af37',
+                          color: '#d4af37',
+                          fontWeight: '500',
+                          borderRadius: '25px'
+                        }}>
+                          <i className="fas fa-download me-2"></i>Download
                         </button>
                       </div>
                     </div>
@@ -277,56 +641,101 @@ export default function Home() {
           {/* Recent Sermons */}
           <div className="row">
             <div className="col-12 text-center mb-4">
-              <h4>Recent Sermons</h4>
+              <h4 style={{color: '#2c3e50', fontWeight: '600'}}>Recent Sermons</h4>
             </div>
           </div>
           <div className="row g-4">
             <div className="col-lg-4 col-md-6">
-              <div className="card h-100 border-0 shadow-sm">
-                <div className="card-header bg-primary text-white text-center py-3">
-                  <h6 className="mb-0">The Power of Prayer</h6>
-                  <small>Matthew 6:9-13</small>
+              <div className="sermon-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="sermon-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h6 className="mb-1" style={{fontWeight: '600'}}>The Power of Prayer</h6>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>Matthew 6:9-13</small>
                 </div>
-                <div className="card-body text-center">
-                  <div className="sermon-banner bg-light mb-3" style={{height: '120px', backgroundImage: 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <i className="fas fa-microphone fa-2x text-white"></i>
+                <div className="sermon-body text-center p-3">
+                  <div className="sermon-image mb-3" style={{
+                    height: '120px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <i className="fas fa-microphone fa-2x" style={{color: 'rgba(255,255,255,0.9)'}}></i>
                   </div>
-                  <p className="card-text small text-muted mb-2">Pastor Sarah Johnson • Dec 25, 2025</p>
-                  <button className="btn btn-sm btn-outline-primary">
+                  <p className="mb-2" style={{color: '#6c757d', fontSize: '0.9rem'}}>Pastor Sarah Johnson • Dec 29, 2025</p>
+                  <button className="btn btn-sm w-100" style={{
+                    background: 'transparent',
+                    border: '2px solid #d4af37',
+                    color: '#d4af37',
+                    fontWeight: '500',
+                    borderRadius: '20px'
+                  }}>
                     <i className="fas fa-play me-1"></i>Listen
                   </button>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
-              <div className="card h-100 border-0 shadow-sm">
-                <div className="card-header bg-primary text-white text-center py-3">
-                  <h6 className="mb-0">Love Your Neighbor</h6>
-                  <small>Luke 10:25-37</small>
+              <div className="sermon-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="sermon-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h6 className="mb-1" style={{fontWeight: '600'}}>Love Your Neighbor</h6>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>Luke 10:25-37</small>
                 </div>
-                <div className="card-body text-center">
-                  <div className="sermon-banner bg-light mb-3" style={{height: '120px', backgroundImage: 'url(https://images.pexels.com/photos/2774551/pexels-photo-2774551.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <i className="fas fa-heart fa-2x text-white"></i>
+                <div className="sermon-body text-center p-3">
+                  <div className="sermon-image mb-3" style={{
+                    height: '120px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/2774551/pexels-photo-2774551.jpeg?auto=compress&cs=tinysrgb&w=800)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <i className="fas fa-heart fa-2x" style={{color: 'rgba(255,255,255,0.9)'}}></i>
                   </div>
-                  <p className="card-text small text-muted mb-2">Pastor Michael Davis • Dec 18, 2025</p>
-                  <button className="btn btn-sm btn-outline-primary">
+                  <p className="mb-2" style={{color: '#6c757d', fontSize: '0.9rem'}}>Pastor Michael Davis • Dec 22, 2025</p>
+                  <button className="btn btn-sm w-100" style={{
+                    background: 'transparent',
+                    border: '2px solid #d4af37',
+                    color: '#d4af37',
+                    fontWeight: '500',
+                    borderRadius: '20px'
+                  }}>
                     <i className="fas fa-play me-1"></i>Listen
                   </button>
                 </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6">
-              <div className="card h-100 border-0 shadow-sm">
-                <div className="card-header bg-primary text-white text-center py-3">
-                  <h6 className="mb-0">Growing in Grace</h6>
-                  <small>2 Peter 3:18</small>
+              <div className="sermon-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="sermon-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h6 className="mb-1" style={{fontWeight: '600'}}>Growing in Grace</h6>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>2 Peter 3:18</small>
                 </div>
-                <div className="card-body text-center">
-                  <div className="sermon-banner bg-light mb-3" style={{height: '120px', backgroundImage: 'url(https://images.pexels.com/photos/5875070/pexels-photo-5875070.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <i className="fas fa-seedling fa-2x text-white"></i>
+                <div className="sermon-body text-center p-3">
+                  <div className="sermon-image mb-3" style={{
+                    height: '120px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/5875070/pexels-photo-5875070.jpeg?auto=compress&cs=tinysrgb&w=800)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <i className="fas fa-seedling fa-2x" style={{color: 'rgba(255,255,255,0.9)'}}></i>
                   </div>
-                  <p className="card-text small text-muted mb-2">Pastor John Smith • Dec 11, 2025</p>
-                  <button className="btn btn-sm btn-outline-primary">
+                  <p className="mb-2" style={{color: '#6c757d', fontSize: '0.9rem'}}>Pastor John Smith • Dec 15, 2025</p>
+                  <button className="btn btn-sm w-100" style={{
+                    background: 'transparent',
+                    border: '2px solid #d4af37',
+                    color: '#d4af37',
+                    fontWeight: '500',
+                    borderRadius: '20px'
+                  }}>
                     <i className="fas fa-play me-1"></i>Listen
                   </button>
                 </div>
@@ -336,44 +745,80 @@ export default function Home() {
 
           {/* Sermon Archive Link */}
           <div className="text-center mt-5">
-            <a href="#" className="btn btn-secondary">
-              <i className="fas fa-archive me-2"></i>View Sermon Archive
-            </a>
+            <button className="btn px-4 py-3" style={{
+              background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+              border: 'none',
+              color: '#2c3e50',
+              fontWeight: '600',
+              borderRadius: '30px',
+              boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)',
+              transition: 'all 0.3s ease'
+            }}>
+              <i className="fas fa-archive me-2"></i>View Complete Sermon Archive
+            </button>
           </div>
         </div>
       </section>
-      <section id="events" className="py-5 bg-light">
+      {/* Upcoming Events Section */}
+      <section id="events" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="display-4 fw-bold text-primary">Upcoming Events</h2>
-            <p className="lead text-muted">Join us for worship, fellowship, and community activities</p>
+            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>Upcoming Events</h2>
+            <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
+              Join us for worship, fellowship, and community activities
+            </p>
+            <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
           </div>
 
           <div className="row g-4">
             {/* Christmas Eve Service */}
             <div className="col-lg-6 col-xl-4">
-              <div className="card h-100 border-0 shadow-lg">
-                <div className="card-header bg-primary text-white text-center py-3">
-                  <h5 className="mb-1">Christmas Eve Service</h5>
-                  <small>December 24, 2025 • 7:00 PM</small>
+              <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h5 className="mb-1" style={{fontWeight: '600'}}>Christmas Eve Service</h5>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>December 24, 2025 • 7:00 PM</small>
                 </div>
-                <div className="card-body p-0">
-                  <div className="event-banner" style={{height: '200px', backgroundImage: 'url(https://images.pexels.com/photos/35435098/pexels-photo-35435098.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                <div className="event-body p-0">
+                  <div className="event-banner" style={{
+                    height: '200px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/35435098/pexels-photo-35435098.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
                     <div className="d-flex align-items-end h-100">
-                      <div className="bg-dark bg-opacity-75 text-white p-3 w-100">
+                      <div className="event-overlay p-3" style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%)',
+                        color: 'white'
+                      }}>
                         <h6 className="mb-1">Celebrate the birth of Jesus Christ</h6>
                         <small>Special carol singing and candlelight service</small>
                       </div>
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="card-text small text-muted mb-3">Join us for a beautiful Christmas Eve service featuring traditional carols, special readings, and a candlelight ceremony. Bring your family and friends for this joyous celebration.</p>
-                    <button className="btn btn-primary btn-sm me-2">
-                      <i className="fas fa-calendar-plus me-1"></i>RSVP
-                    </button>
-                    <button className="btn btn-outline-primary btn-sm">
-                      <i className="fas fa-info-circle me-1"></i>Details
-                    </button>
+                    <p className="text-muted mb-3" style={{fontSize: '0.9rem', lineHeight: '1.5'}}>
+                      Join us for a beautiful Christmas Eve service featuring traditional carols, special readings, and a candlelight ceremony. Bring your family and friends for this joyous celebration.
+                    </p>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        border: 'none',
+                        color: '#2c3e50',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-calendar-plus me-1"></i>RSVP
+                      </button>
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'transparent',
+                        border: '2px solid #d4af37',
+                        color: '#d4af37',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-info-circle me-1"></i>Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -381,29 +826,52 @@ export default function Home() {
 
             {/* Choir Performance */}
             <div className="col-lg-6 col-xl-4">
-              <div className="card h-100 border-0 shadow-lg">
-                <div className="card-header bg-success text-white text-center py-3">
-                  <h5 className="mb-1">Choir Concert</h5>
-                  <small>January 15, 2026 • 6:30 PM</small>
+              <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h5 className="mb-1" style={{fontWeight: '600'}}>Choir Concert</h5>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>January 15, 2026 • 6:30 PM</small>
                 </div>
-                <div className="card-body p-0">
-                  <div className="event-banner" style={{height: '200px', backgroundImage: 'url(https://images.pexels.com/photos/8815030/pexels-photo-8815030.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                <div className="event-body p-0">
+                  <div className="event-banner" style={{
+                    height: '200px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/8815030/pexels-photo-8815030.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
                     <div className="d-flex align-items-end h-100">
-                      <div className="bg-dark bg-opacity-75 text-white p-3 w-100">
+                      <div className="event-overlay p-3" style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%)',
+                        color: 'white'
+                      }}>
                         <h6 className="mb-1">Grace of God Choir</h6>
                         <small>Sacred and contemporary music</small>
                       </div>
-                      
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="card-text small text-muted mb-3">Experience the beautiful harmonies of our church choir as they perform a selection of sacred hymns and contemporary Christian music. A night of worship through song.</p>
-                    <button className="btn btn-success btn-sm me-2">
-                      <i className="fas fa-calendar-plus me-1"></i>RSVP
-                    </button>
-                    <button className="btn btn-outline-success btn-sm">
-                      <i className="fas fa-info-circle me-1"></i>Details
-                    </button>
+                    <p className="text-muted mb-3" style={{fontSize: '0.9rem', lineHeight: '1.5'}}>
+                      Experience the beautiful harmonies of our church choir as they perform a selection of sacred hymns and contemporary Christian music. A night of worship through song.
+                    </p>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        border: 'none',
+                        color: '#2c3e50',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-calendar-plus me-1"></i>RSVP
+                      </button>
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'transparent',
+                        border: '2px solid #d4af37',
+                        color: '#d4af37',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-info-circle me-1"></i>Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -411,28 +879,52 @@ export default function Home() {
 
             {/* Community Outreach */}
             <div className="col-lg-6 col-xl-4">
-              <div className="card h-100 border-0 shadow-lg">
-                <div className="card-header bg-info text-white text-center py-3">
-                  <h5 className="mb-1">Community Food Drive</h5>
-                  <small>January 22, 2026 • 9:00 AM - 3:00 PM</small>
+              <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h5 className="mb-1" style={{fontWeight: '600'}}>Community Food Drive</h5>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>January 22, 2026 • 9:00 AM - 3:00 PM</small>
                 </div>
-                <div className="card-body p-0">
-                  <div className="event-banner" style={{height: '200px', backgroundImage: 'url(https://images.pexels.com/photos/8814953/pexels-photo-8814953.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                <div className="event-body p-0">
+                  <div className="event-banner" style={{
+                    height: '200px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/8814953/pexels-photo-8814953.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
                     <div className="d-flex align-items-end h-100">
-                      <div className="bg-dark bg-opacity-75 text-white p-3 w-100">
+                      <div className="event-overlay p-3" style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%)',
+                        color: 'white'
+                      }}>
                         <h6 className="mb-1">Serving Our Community</h6>
                         <small>Non-perishable food donations needed</small>
                       </div>
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="card-text small text-muted mb-3">Help us support families in need by donating non-perishable food items. Your generosity will make a real difference in our community this winter season.</p>
-                    <button className="btn btn-info btn-sm me-2">
-                      <i className="fas fa-hand-holding-heart me-1"></i>Volunteer
-                    </button>
-                    <button className="btn btn-outline-info btn-sm">
-                      <i className="fas fa-info-circle me-1"></i>Details
-                    </button>
+                    <p className="text-muted mb-3" style={{fontSize: '0.9rem', lineHeight: '1.5'}}>
+                      Help us support families in need by donating non-perishable food items. Your generosity will make a real difference in our community this winter season.
+                    </p>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        border: 'none',
+                        color: '#2c3e50',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-hand-holding-heart me-1"></i>Volunteer
+                      </button>
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'transparent',
+                        border: '2px solid #d4af37',
+                        color: '#d4af37',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-info-circle me-1"></i>Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -440,28 +932,52 @@ export default function Home() {
 
             {/* Easter Sunrise Service */}
             <div className="col-lg-6 col-xl-4">
-              <div className="card h-100 border-0 shadow-lg">
-                <div className="card-header bg-warning text-dark text-center py-3">
-                  <h5 className="mb-1">Easter Sunrise Service</h5>
-                  <small>March 30, 2026 • 6:30 AM</small>
+              <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h5 className="mb-1" style={{fontWeight: '600'}}>Easter Sunrise Service</h5>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>March 30, 2026 • 6:30 AM</small>
                 </div>
-                <div className="card-body p-0">
-                  <div className="event-banner" style={{height: '200px', backgroundImage: 'url(https://images.pexels.com/photos/20821489/pexels-photo-20821489.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                <div className="event-body p-0">
+                  <div className="event-banner" style={{
+                    height: '200px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/20821489/pexels-photo-20821489.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
                     <div className="d-flex align-items-end h-100">
-                      <div className="bg-dark bg-opacity-75 text-white p-3 w-100">
+                      <div className="event-overlay p-3" style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%)',
+                        color: 'white'
+                      }}>
                         <h6 className="mb-1">Celebrating Resurrection</h6>
                         <small>Outdoor sunrise service</small>
                       </div>
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="card-text small text-muted mb-3">Begin your Easter morning with worship as we celebrate the resurrection of Jesus Christ. Bring blankets and join us outdoors for this special sunrise service.</p>
-                    <button className="btn btn-warning btn-sm me-2">
-                      <i className="fas fa-calendar-plus me-1"></i>RSVP
-                    </button>
-                    <button className="btn btn-outline-warning btn-sm">
-                      <i className="fas fa-info-circle me-1"></i>Details
-                    </button>
+                    <p className="text-muted mb-3" style={{fontSize: '0.9rem', lineHeight: '1.5'}}>
+                      Begin your Easter morning with worship as we celebrate the resurrection of Jesus Christ. Bring blankets and join us outdoors for this special sunrise service.
+                    </p>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        border: 'none',
+                        color: '#2c3e50',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-sun me-1"></i>RSVP
+                      </button>
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'transparent',
+                        border: '2px solid #d4af37',
+                        color: '#d4af37',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-info-circle me-1"></i>Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -469,28 +985,52 @@ export default function Home() {
 
             {/* Youth Group Meeting */}
             <div className="col-lg-6 col-xl-4">
-              <div className="card h-100 border-0 shadow-lg">
-                <div className="card-header bg-secondary text-white text-center py-3">
-                  <h5 className="mb-1">Youth Group Meeting</h5>
-                  <small>Every Friday • 7:00 PM</small>
+              <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h5 className="mb-1" style={{fontWeight: '600'}}>Youth Group Meeting</h5>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>Every Friday • 7:00 PM</small>
                 </div>
-                <div className="card-body p-0">
-                  <div className="event-banner" style={{height: '200px', backgroundImage: 'url(https://images.pexels.com/photos/7567324/pexels-photo-7567324.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                <div className="event-body p-0">
+                  <div className="event-banner" style={{
+                    height: '200px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/7567324/pexels-photo-7567324.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
                     <div className="d-flex align-items-end h-100">
-                      <div className="bg-dark bg-opacity-75 text-white p-3 w-100">
+                      <div className="event-overlay p-3" style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%)',
+                        color: 'white'
+                      }}>
                         <h6 className="mb-1">For Teens Ages 13-18</h6>
                         <small>Fellowship, games, and Bible study</small>
                       </div>
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="card-text small text-muted mb-3">Weekly gathering for teens featuring worship, Bible study, games, and fellowship. A safe space to grow in faith and make lasting friendships.</p>
-                    <button className="btn btn-secondary btn-sm me-2">
-                      <i className="fas fa-user-plus me-1"></i>Join Us
-                    </button>
-                    <button className="btn btn-outline-secondary btn-sm">
-                      <i className="fas fa-info-circle me-1"></i>Details
-                    </button>
+                    <p className="text-muted mb-3" style={{fontSize: '0.9rem', lineHeight: '1.5'}}>
+                      Weekly gathering for teens featuring worship, Bible study, games, and fellowship. A safe space to grow in faith and make lasting friendships.
+                    </p>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        border: 'none',
+                        color: '#2c3e50',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-user-plus me-1"></i>Join Us
+                      </button>
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'transparent',
+                        border: '2px solid #d4af37',
+                        color: '#d4af37',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-info-circle me-1"></i>Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -498,28 +1038,52 @@ export default function Home() {
 
             {/* Prayer Meeting */}
             <div className="col-lg-6 col-xl-4">
-              <div className="card h-100 border-0 shadow-lg">
-                <div className="card-header bg-dark text-white text-center py-3">
-                  <h5 className="mb-1">Weekly Prayer Meeting</h5>
-                  <small>Every Wednesday • 7:00 PM</small>
+              <div className="event-card bg-white rounded-3 shadow-sm h-100 overflow-hidden">
+                <div className="event-header text-center py-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50'}}>
+                  <h5 className="mb-1" style={{fontWeight: '600'}}>Weekly Prayer Meeting</h5>
+                  <small style={{color: '#2c3e50', opacity: '0.8'}}>Every Wednesday • 7:00 PM</small>
                 </div>
-                <div className="card-body p-0">
-                  <div className="event-banner" style={{height: '200px', backgroundImage: 'url(https://images.pexels.com/photos/8674204/pexels-photo-8674204.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                <div className="event-body p-0">
+                  <div className="event-banner" style={{
+                    height: '200px',
+                    backgroundImage: 'url(https://images.pexels.com/photos/8674204/pexels-photo-8674204.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}>
                     <div className="d-flex align-items-end h-100">
-                      <div className="bg-dark bg-opacity-75 text-white p-3 w-100">
+                      <div className="event-overlay p-3" style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%)',
+                        color: 'white'
+                      }}>
                         <h6 className="mb-1">United in Prayer</h6>
                         <small>Corporate prayer and intercession</small>
                       </div>
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="card-text small text-muted mb-3">Join us for a time of corporate prayer, worship, and intercession. Experience the power of united prayer as we lift up our community, nation, and world.</p>
-                    <button className="btn btn-dark btn-sm me-2">
-                      <i className="fas fa-pray me-1"></i>Join Prayer
-                    </button>
-                    <button className="btn btn-outline-dark btn-sm">
-                      <i className="fas fa-info-circle me-1"></i>Details
-                    </button>
+                    <p className="text-muted mb-3" style={{fontSize: '0.9rem', lineHeight: '1.5'}}>
+                      Join us for a time of corporate prayer, worship, and intercession. Experience the power of united prayer as we lift up our community, nation, and world.
+                    </p>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                        border: 'none',
+                        color: '#2c3e50',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-pray me-1"></i>Join Prayer
+                      </button>
+                      <button className="btn btn-sm flex-fill" style={{
+                        background: 'transparent',
+                        border: '2px solid #d4af37',
+                        color: '#d4af37',
+                        fontWeight: '500',
+                        borderRadius: '20px'
+                      }}>
+                        <i className="fas fa-info-circle me-1"></i>Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -528,7 +1092,16 @@ export default function Home() {
 
           {/* Events Archive Link */}
           <div className="text-center mt-5">
-            <a href="#" className="btn btn-primary btn-lg">
+            <a href="#" className="btn btn-lg" style={{
+              background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+              border: 'none',
+              color: '#2c3e50',
+              fontWeight: '600',
+              borderRadius: '25px',
+              padding: '12px 30px',
+              boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)',
+              transition: 'all 0.3s ease'
+            }}>
               <i className="fas fa-calendar-alt me-2"></i>View All Events
             </a>
           </div>
@@ -1173,12 +1746,114 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="news" className="py-5 bg-light">
+      {/* News & Announcements Section */}
+      <section id="news" className="py-5" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
         <div className="container">
-          <h2>News & Announcements</h2>
-          <p>Stay updated with the latest news from our church.</p>
+          <div className="text-center mb-5">
+            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>News & Announcements</h2>
+            <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
+              Stay connected with the latest updates, events, and announcements from our church community.
+            </p>
+            <div style={{width: '60px', height: '3px', background: 'linear-gradient(90deg, #d4af37, #ffd700)', margin: '0 auto'}}></div>
+          </div>
+
+          <div className="row g-4">
+            {/* Featured Announcement */}
+            <div className="col-lg-8">
+              <div className="featured-news bg-white p-4 rounded-3 shadow-sm">
+                <div className="d-flex align-items-center mb-3">
+                  <div className="news-badge me-3" style={{background: 'linear-gradient(135deg, #d4af37, #ffd700)', color: '#2c3e50', padding: '5px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: '600'}}>
+                    FEATURED
+                  </div>
+                  <small className="text-muted">January 8, 2026</small>
+                </div>
+                <h4 className="text-dark mb-3" style={{fontWeight: '600'}}>Community Outreach Program Launch</h4>
+                <p className="text-muted mb-3">
+                  We're excited to announce the launch of our new community outreach program! Starting next month, we'll be providing weekly meals to families in need, along with tutoring support for local children.
+                </p>
+                <div className="d-flex align-items-center">
+                  <i className="fas fa-user-circle text-muted me-2"></i>
+                  <small className="text-muted">Posted by Pastor John Smith</small>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Announcements */}
+            <div className="col-lg-4">
+              <div className="quick-announcements">
+                <div className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3">
+                  <div className="d-flex align-items-start">
+                    <div className="announcement-icon me-3" style={{width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0'}}>
+                      <i className="fas fa-calendar-alt fa-sm text-dark"></i>
+                    </div>
+                    <div>
+                      <h6 className="text-dark mb-1" style={{fontWeight: '600'}}>Youth Retreat</h6>
+                      <p className="text-muted small mb-1">February 15-17, 2026</p>
+                      <small className="text-muted">Registration opens soon!</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3">
+                  <div className="d-flex align-items-start">
+                    <div className="announcement-icon me-3" style={{width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0'}}>
+                      <i className="fas fa-users fa-sm text-dark"></i>
+                    </div>
+                    <div>
+                      <h6 className="text-dark mb-1" style={{fontWeight: '600'}}>New Members Class</h6>
+                      <p className="text-muted small mb-1">Every Wednesday, 7:00 PM</p>
+                      <small className="text-muted">Starting January 15th</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="announcement-item bg-white p-3 rounded-3 shadow-sm">
+                  <div className="d-flex align-items-start">
+                    <div className="announcement-icon me-3" style={{width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: '0'}}>
+                      <i className="fas fa-heart fa-sm text-dark"></i>
+                    </div>
+                    <div>
+                      <h6 className="text-dark mb-1" style={{fontWeight: '600'}}>Food Drive Success</h6>
+                      <p className="text-muted small mb-1">Thank you for your generosity!</p>
+                      <small className="text-muted">Helped 50 families this month</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="newsletter-signup bg-white p-4 rounded-3 shadow-sm mt-5">
+            <div className="row align-items-center">
+              <div className="col-lg-8">
+                <h4 className="text-dark mb-2" style={{fontWeight: '600'}}>Stay Updated</h4>
+                <p className="text-muted mb-0">Subscribe to our newsletter to receive weekly updates, event reminders, and inspirational messages.</p>
+              </div>
+              <div className="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <button className="btn px-4 py-2" style={{
+                  background: 'linear-gradient(135deg, #d4af37, #ffd700)',
+                  border: 'none',
+                  color: '#2c3e50',
+                  fontWeight: '600',
+                  borderRadius: '25px'
+                }}>
+                  <i className="fas fa-envelope me-2"></i>Subscribe Now
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      <button
+        className={`scroll-to-top ${showScrollTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+      >
+        <i className="fas fa-arrow-up"></i>
+      </button>
     </div>
   );
 }
