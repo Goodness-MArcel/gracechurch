@@ -1,7 +1,11 @@
 "use client";
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+
+// Lazy load heavy components
+const Header = lazy(() => import('../components/Header'));
+const Footer = lazy(() => import('../components/Footer'));
 
 export default function Home() {
   const images = [
@@ -15,6 +19,7 @@ export default function Home() {
   const [previousImage, setPreviousImage] = useState(null);
   const [previousOpacity, setPreviousOpacity] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,6 +71,10 @@ export default function Home() {
             fill
             style={{ objectFit: 'cover', opacity: previousOpacity }}
             className="hero-image"
+            priority={false}
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+IRjWjBqO6O2mhP//Z"
           />
         )}
         <Image
@@ -74,6 +83,10 @@ export default function Home() {
           fill
           style={{ objectFit: 'cover', opacity: opacity }}
           className="hero-image"
+          priority={true}
+          quality={85}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+IRjWjBqO6O2mhP//Z"
         />
         <div className="d-flex align-items-center justify-content-center" style={{
           position: 'absolute',

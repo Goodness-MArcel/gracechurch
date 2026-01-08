@@ -168,3 +168,51 @@ a {
 .scroll-to-top:active {
   transform: translateY(0);
 }
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize images */
+.hero-image {
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* Optimize buttons and interactive elements */
+.btn, .card, .motion-div {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Optimize scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Preload critical resources */
+.hero-section {
+  background-image: url('/images/bg1.jpg');
+  background-size: cover;
+  background-position: center;
+}

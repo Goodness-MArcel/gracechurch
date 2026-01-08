@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "analyze": "next build --analyze",
+    "build:profile": "next build --profile"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
@@ -14,7 +16,8 @@
     "framer-motion": "^12.24.11",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
     "babel-plugin-react-compiler": "1.0.0",
