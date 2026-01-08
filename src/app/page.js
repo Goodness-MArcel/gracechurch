@@ -773,22 +773,26 @@ export default function Home() {
                       <p style={{color: '#6c757d', lineHeight: '1.6'}}>
                         In this powerful message, Pastor John explores what it means to truly trust in God's plan for our lives, even when the path seems uncertain. Drawing from Proverbs 3:5-6, we learn practical steps to walk in faith and experience God's peace.
                       </p>
-                      <div className="mt-4">
-                        <button className="btn me-3 px-4 py-2" style={{
+                      <div className="mt-4 d-flex flex-nowrap gap-2">
+                        <button className="btn px-3 py-2" style={{
                           background: 'linear-gradient(135deg, #d4af37, #ffd700)',
                           border: 'none',
                           color: '#2c3e50',
                           fontWeight: '600',
-                          borderRadius: '25px'
+                          borderRadius: '25px',
+                          fontSize: '14px',
+                          whiteSpace: 'nowrap'
                         }}>
                           <i className="fas fa-play me-2"></i>Listen Now
                         </button>
-                        <button className="btn px-4 py-2" style={{
+                        <button className="btn px-3 py-2" style={{
                           background: 'transparent',
                           border: '2px solid #d4af37',
                           color: '#d4af37',
                           fontWeight: '500',
-                          borderRadius: '25px'
+                          borderRadius: '25px',
+                          fontSize: '14px',
+                          whiteSpace: 'nowrap'
                         }}>
                           <i className="fas fa-download me-2"></i>Download
                         </button>
@@ -2194,7 +2198,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700'}}>News & Announcements</h2>
+            <h2 className="section-heading mb-3" style={{color: '#2c3e50', fontWeight: '700', fontSize: '2rem'}}>News & Announcements</h2>
             <p className="lead mb-4" style={{color: '#6c757d', fontSize: '1.2rem'}}>
               Stay connected with the latest updates, events, and announcements from our church community.
             </p>
