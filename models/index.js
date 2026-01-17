@@ -3,6 +3,7 @@ const { sequelize } = require('../src/lib/db-commonjs.js');
 const userModel = require('./user.js');
 const eventModel = require('./event.js');
 const sermonModel = require('./sermon.js');
+const ministryModel = require('./ministry.js');
 
 const db = {};
 
@@ -14,6 +15,9 @@ db[event.name] = event;
 
 const sermon = sermonModel(sequelize, Sequelize.DataTypes);
 db[sermon.name] = sermon;
+
+const ministry = ministryModel(sequelize, Sequelize.DataTypes);
+db[ministry.name] = ministry;
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

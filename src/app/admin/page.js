@@ -36,7 +36,7 @@ export default function Admin() {
       title: 'Ministries',
       description: 'Manage church ministries and coordinators',
       icon: 'fas fa-hands-helping',
-      href: '/admin/users',
+      href: '/admin/ministries',
       color: '#9b59b6'
     },
     {

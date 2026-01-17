@@ -13,7 +13,6 @@ export default function Home() {
     '/images/bg3.jpg',
     '/images/bg4.jpg'
   ];
-
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [opacity, setOpacity] = useState(1);
   const [previousImage, setPreviousImage] = useState(null);
@@ -24,88 +23,31 @@ export default function Home() {
   const [selectedSermon, setSelectedSermon] = useState(null);
   const [showAudioPlayer, setShowAudioPlayer] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+  const [ministries, setMinistries] = useState([]);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * images.length);
-      } while (images[randomIndex] === currentImage);
-      setPreviousImage(currentImage);
-      setPreviousOpacity(1);
-      setOpacity(0);
-      setTimeout(() => {
-        setCurrentImage(images[randomIndex]);
-        setOpacity(1);
-        setPreviousOpacity(0);
-      }, 2000);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [currentImage]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('/api/events');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setEvents(data.data);
-          }
+        const res = await fetch('/api/events');
+        const json = await res.json();
+        if (json?.success && Array.isArray(json.data)) {
+          setEvents(json.data);
+        } else if (Array.isArray(json)) {
+          setEvents(json);
         }
-      } catch (error) {
-        console.error('Error fetching events:', error);
+      } catch (e) {
+        console.error('Failed to load events:', e);
       }
     };
-
-    const fetchSermons = async () => {
-      try {
-        const response = await fetch('/api/sermons');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setSermons(data.data);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching sermons:', error);
-      }
-    };
-
     fetchEvents();
-    fetchSermons();
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  const playAudio = (sermon) => {
-    setSelectedSermon(sermon);
-    setShowAudioPlayer(true);
-  };
-
-  const playVideo = (sermon) => {
-    setSelectedSermon(sermon);
-    setShowVideoPlayer(true);
+    try {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (_) {
+      // noop for SSR
+    }
   };
 
   const closePlayers = () => {
@@ -114,72 +56,11 @@ export default function Home() {
     setSelectedSermon(null);
   };
 
-  // Helper function to extract YouTube video ID
-  const getYouTubeEmbedUrl = (url) => {
-    if (!url) return null;
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
-  };
-
+  // Fallback events when DB returns none
   const staticEvents = [
     {
-      title: 'Christmas Eve Service',
-      date: 'December 24, 2025',
-      time: '7:00 PM',
-      image: 'https://images.pexels.com/photos/35435098/pexels-photo-35435098.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
-      shortDesc: 'Celebrate the birth of Jesus Christ',
-      shortDesc2: 'Special carol singing and candlelight service',
-      description: 'Join us for a beautiful Christmas Eve service featuring traditional carols, special readings, and a candlelight ceremony. Bring your family and friends for this joyous celebration.',
-      button1: { icon: 'fas fa-calendar-plus', text: 'RSVP' },
-      button2: { icon: 'fas fa-info-circle', text: 'Details' }
-    },
-    {
-      title: 'Choir Concert',
-      date: 'January 15, 2026',
-      time: '6:30 PM',
-      image: 'https://images.pexels.com/photos/8815030/pexels-photo-8815030.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
-      shortDesc: 'Grace of God Choir',
-      shortDesc2: 'Sacred and contemporary music',
-      description: 'Experience the beautiful harmonies of our church choir as they perform a selection of sacred hymns and contemporary Christian music. A night of worship through song.',
-      button1: { icon: 'fas fa-calendar-plus', text: 'RSVP' },
-      button2: { icon: 'fas fa-info-circle', text: 'Details' }
-    },
-    {
-      title: 'Community Food Drive',
-      date: 'January 22, 2026',
-      time: '9:00 AM - 3:00 PM',
-      image: 'https://images.pexels.com/photos/8814953/pexels-photo-8814953.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
-      shortDesc: 'Serving Our Community',
-      shortDesc2: 'Non-perishable food donations needed',
-      description: 'Help us support families in need by donating non-perishable food items. Your generosity will make a real difference in our community this winter season.',
-      button1: { icon: 'fas fa-hand-holding-heart', text: 'Volunteer' },
-      button2: { icon: 'fas fa-info-circle', text: 'Details' }
-    },
-    {
-      title: 'Easter Sunrise Service',
-      date: 'March 30, 2026',
-      time: '6:30 AM',
-      image: 'https://images.pexels.com/photos/20821489/pexels-photo-20821489.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
-      shortDesc: 'Celebrating Resurrection',
-      shortDesc2: 'Outdoor sunrise service',
-      description: 'Begin your Easter morning with worship as we celebrate the resurrection of Jesus Christ. Bring blankets and join us outdoors for this special sunrise service.',
-      button1: { icon: 'fas fa-sun', text: 'RSVP' },
-      button2: { icon: 'fas fa-info-circle', text: 'Details' }
-    },
-    {
-      title: 'Youth Group Meeting',
-      date: 'Every Friday',
-      time: '7:00 PM',
-      image: 'https://images.pexels.com/photos/7567324/pexels-photo-7567324.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
-      shortDesc: 'For Teens Ages 13-18',
-      shortDesc2: 'Fellowship, games, and Bible study',
-      description: 'Weekly gathering for teens featuring worship, Bible study, games, and fellowship. A safe space to grow in faith and make lasting friendships.',
-      button1: { icon: 'fas fa-user-plus', text: 'Join Us' },
-      button2: { icon: 'fas fa-info-circle', text: 'Details' }
-    },
-    {
-      title: 'Weekly Prayer Meeting',
-      date: 'Every Wednesday',
+      title: 'Prayer Meeting',
+      date: new Date().toISOString().substring(0,10),
       time: '7:00 PM',
       image: 'https://images.pexels.com/photos/8674204/pexels-photo-8674204.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
       shortDesc: 'United in Prayer',

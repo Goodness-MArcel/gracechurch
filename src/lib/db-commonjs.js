@@ -2,8 +2,18 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config({ path: '.env.local' });
 const pg = require('pg');
 
-const sequelize = process.env.DATABASE_URL
-  ? new Sequelize(process.env.DATABASE_URL, {
+// Prefer DATABASE_URL, but support Vercel Postgres env names; fall back to sqlite::memory: for build-time hydration
+const connectionString = process.env.DATABASE_URL
+  || process.env.POSTGRES_URL
+  || process.env.POSTGRES_PRISMA_URL;
+
+const useSqliteFallback = !connectionString;
+
+const sequelize = useSqliteFallback
+  ? new Sequelize('sqlite::memory:', {
+      logging: false
+    })
+  : new Sequelize(connectionString, {
       dialect: 'postgres',
       dialectOptions: {
         ssl: {
@@ -25,8 +35,7 @@ const sequelize = process.env.DATABASE_URL
         backoffBase: 100, // Initial backoff delay in ms
         backoffExponent: 1.5 // Exponential backoff multiplier
       }
-    })
-  : null;
+    });
 
 const connectDB = async () => {
   if (!sequelize) {

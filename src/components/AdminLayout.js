@@ -89,7 +89,7 @@ export default function AdminLayout({ children }) {
     { href: '/admin/content', label: 'Content', icon: 'fas fa-edit' },
     { href: '/admin/sermons', label: 'Sermons', icon: 'fas fa-microphone' },
     { href: '/admin/events', label: 'Events', icon: 'fas fa-calendar-alt' },
-    { href: '/admin/users', label: 'Users', icon: 'fas fa-users' },
+    { href: '/admin/ministries', label: 'Ministries', icon: 'fas fa-hands-helping' },
     { href: '/admin/donations', label: 'Donations', icon: 'fas fa-hand-holding-heart' }
   ];
 
