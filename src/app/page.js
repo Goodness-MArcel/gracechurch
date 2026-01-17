@@ -108,6 +108,52 @@ export default function Home() {
     setSelectedSermon(null);
   };
 
+  const playAudio = (sermon) => {
+    if (!sermon) return;
+    setSelectedSermon(sermon);
+    setShowVideoPlayer(false);
+    setShowAudioPlayer(true);
+  };
+
+  const playVideo = (sermon) => {
+    if (!sermon) return;
+    setSelectedSermon(sermon);
+    setShowAudioPlayer(false);
+    setShowVideoPlayer(true);
+  };
+
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url || typeof url !== 'string') return '';
+
+    try {
+      // If already an embed URL, use as-is
+      if (url.includes('youtube.com/embed/')) return url;
+
+      const parsed = new URL(url);
+      const host = parsed.hostname.replace('www.', '');
+
+      let videoId = '';
+
+      if (host === 'youtu.be') {
+        videoId = parsed.pathname.replace('/', '');
+      } else if (host === 'youtube.com' || host === 'm.youtube.com') {
+        if (parsed.pathname === '/watch') {
+          videoId = parsed.searchParams.get('v') || '';
+        } else if (parsed.pathname.startsWith('/shorts/')) {
+          videoId = parsed.pathname.split('/shorts/')[1]?.split('/')[0] || '';
+        } else if (parsed.pathname.startsWith('/embed/')) {
+          videoId = parsed.pathname.split('/embed/')[1]?.split('/')[0] || '';
+        }
+      }
+
+      if (!videoId) return url;
+
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    } catch {
+      return url;
+    }
+  };
+
   // Fallback events when DB returns none
   const staticEvents = [
     {
