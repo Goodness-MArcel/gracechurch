@@ -1,6 +1,11 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config({ path: '.env.local' });
 
+// Force Postgres driver dependencies to be included in server bundles (Vercel/Turbopack).
+// Sequelize dynamically requires these, which can be missed by output tracing.
+require('pg');
+require('pg-hstore');
+
 // Prefer DATABASE_URL, but support Vercel Postgres env names
 const connectionString = process.env.DATABASE_URL
   || process.env.POSTGRES_URL

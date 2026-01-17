@@ -157,6 +157,7 @@ export default function Home() {
   // Fallback events when DB returns none
   const staticEvents = [
     {
+      id: 'static-event-1',
       title: 'Prayer Meeting',
       date: new Date().toISOString().substring(0,10),
       time: '7:00 PM',
@@ -166,10 +167,35 @@ export default function Home() {
       description: 'Join us for a time of corporate prayer, worship, and intercession. Experience the power of united prayer as we lift up our community, nation, and world.',
       button1: { icon: 'fas fa-pray', text: 'Join Prayer' },
       button2: { icon: 'fas fa-info-circle', text: 'Details' }
+    },
+    {
+      id: 'static-event-2',
+      title: 'Sunday Service',
+      date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10),
+      time: '10:00 AM',
+      image: 'https://images.pexels.com/photos/169490/pexels-photo-169490.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
+      shortDesc: 'Worship Together',
+      shortDesc2: 'Praise, Word, and fellowship',
+      description: 'Join us for our Sunday service as we worship together and hear God\'s Word.',
+      button1: { icon: 'fas fa-church', text: 'Attend' },
+      button2: { icon: 'fas fa-info-circle', text: 'Details' }
+    },
+    {
+      id: 'static-event-3',
+      title: 'Bible Study',
+      date: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10),
+      time: '6:30 PM',
+      image: 'https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
+      shortDesc: 'Grow in the Word',
+      shortDesc2: 'Study Scripture together',
+      description: 'A midweek gathering to study Scripture, ask questions, and grow in faith.',
+      button1: { icon: 'fas fa-book-open', text: 'Join' },
+      button2: { icon: 'fas fa-info-circle', text: 'Details' }
     }
   ];
 
   const displayEvents = events.length > 0 ? events.map(event => ({
+    id: event.id,
     title: event.title,
     date: new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     time: event.time,
@@ -1125,7 +1151,7 @@ export default function Home() {
           <div className="row g-4">
             {displayEvents.map((event, index) => (
               <motion.div
-                key={event.title}
+                key={event.id ?? `${event.title}-${index}`}
                 className="col-lg-6 col-xl-4"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
