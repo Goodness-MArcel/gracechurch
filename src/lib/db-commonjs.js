@@ -1,19 +1,20 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config({ path: '.env.local' });
-const pg = require('pg');
 
-// Prefer DATABASE_URL, but support Vercel Postgres env names; fall back to sqlite::memory: for build-time hydration
+// Prefer DATABASE_URL, but support Vercel Postgres env names
 const connectionString = process.env.DATABASE_URL
   || process.env.POSTGRES_URL
   || process.env.POSTGRES_PRISMA_URL;
 
-const useSqliteFallback = !connectionString;
+const hasConnectionString = Boolean(connectionString);
 
-const sequelize = useSqliteFallback
-  ? new Sequelize('sqlite::memory:', {
-      logging: false
-    })
-  : new Sequelize(connectionString, {
+// IMPORTANT:
+// - Next/Vercel evaluates route modules at build time ("Collecting page data").
+// - When env vars are missing, we still need a Sequelize instance so model imports don't crash.
+// - Do NOT use sqlite fallback here (it requires the native `sqlite3` package on Vercel).
+// - Instead, create a Postgres-dialect stub that doesn't connect unless used.
+const sequelize = hasConnectionString
+  ? new Sequelize(connectionString, {
       dialect: 'postgres',
       dialectOptions: {
         ssl: {
@@ -35,10 +36,16 @@ const sequelize = useSqliteFallback
         backoffBase: 100, // Initial backoff delay in ms
         backoffExponent: 1.5 // Exponential backoff multiplier
       }
+    })
+  : new Sequelize('postgres', 'postgres', 'postgres', {
+      host: '127.0.0.1',
+      port: 5432,
+      dialect: 'postgres',
+      logging: false
     });
 
 const connectDB = async () => {
-  if (!sequelize) {
+  if (!hasConnectionString) {
     throw new Error('DATABASE_URL not configured');
   }
 
