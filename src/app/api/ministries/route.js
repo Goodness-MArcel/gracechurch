@@ -16,13 +16,22 @@ export async function GET(request) {
     const url = new URL(request.url);
     const pageParam = url.searchParams.get('page');
     const limitParam = url.searchParams.get('limit');
+    const activeParam = url.searchParams.get('active');
 
     const page = Math.max(Number.parseInt(pageParam ?? '1', 10) || 1, 1);
     const limitRaw = Number.parseInt(limitParam ?? '10', 10) || 10;
     const limit = Math.min(Math.max(limitRaw, 1), 50);
     let offset = (page - 1) * limit;
 
+    const where =
+      activeParam === 'true'
+        ? { active: true }
+        : activeParam === 'false'
+          ? { active: false }
+          : undefined;
+
     let { rows, count } = await db.Ministry.findAndCountAll({
+      where,
       order: [['createdAt', 'DESC']],
       limit,
       offset
@@ -34,6 +43,7 @@ export async function GET(request) {
       const adjustedPage = totalPages;
       offset = (adjustedPage - 1) * limit;
       ({ rows, count } = await db.Ministry.findAndCountAll({
+        where,
         order: [['createdAt', 'DESC']],
         limit,
         offset

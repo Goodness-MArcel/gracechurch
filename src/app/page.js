@@ -42,6 +42,58 @@ export default function Home() {
     fetchEvents();
   }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchSermons = async () => {
+      try {
+        const res = await fetch('/api/sermons?limit=6', { cache: 'no-store' });
+        const json = await res.json();
+        const items = json?.success && Array.isArray(json.data) ? json.data : Array.isArray(json) ? json : [];
+
+        if (isMounted) {
+          setSermons(items);
+        }
+      } catch (e) {
+        console.error('Failed to load sermons:', e);
+      }
+    };
+
+    fetchSermons();
+    const intervalId = setInterval(fetchSermons, 60_000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchMinistries = async () => {
+      try {
+        const res = await fetch('/api/ministries?limit=6&active=true', { cache: 'no-store' });
+        const json = await res.json();
+        const items = json?.success && Array.isArray(json.data) ? json.data : Array.isArray(json) ? json : [];
+
+        if (isMounted) {
+          setMinistries(items);
+        }
+      } catch (e) {
+        console.error('Failed to load ministries:', e);
+      }
+    };
+
+    fetchMinistries();
+    const intervalId = setInterval(fetchMinistries, 60_000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, []);
+
   const scrollToTop = () => {
     try {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -82,6 +134,52 @@ export default function Home() {
     button1: { icon: 'fas fa-calendar-plus', text: 'RSVP' },
     button2: { icon: 'fas fa-info-circle', text: 'Details' }
   })) : staticEvents;
+
+  // Fallback sermons when DB returns none
+  const staticSermons = [
+    {
+      id: 'static-1',
+      title: 'Walking in Faith',
+      speaker: 'Grace Church',
+      date: new Date().toISOString(),
+      scripture: 'Hebrews 11:1',
+      duration: '35 min',
+      description: 'A message to encourage you to trust God daily.',
+      featured: true,
+      image: 'https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
+      videoUrl: null,
+      audioPath: null
+    },
+    {
+      id: 'static-2',
+      title: 'The Power of Prayer',
+      speaker: 'Grace Church',
+      date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+      scripture: '1 Thessalonians 5:17',
+      duration: '30 min',
+      description: 'Learning to build a life of consistent prayer.',
+      featured: false,
+      image: 'https://images.pexels.com/photos/8674204/pexels-photo-8674204.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
+      videoUrl: null,
+      audioPath: null
+    },
+    {
+      id: 'static-3',
+      title: 'Grace and Growth',
+      speaker: 'Grace Church',
+      date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+      scripture: '2 Peter 3:18',
+      duration: '28 min',
+      description: 'Growing in grace as we follow Jesus.',
+      featured: false,
+      image: 'https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=800&fit=max',
+      videoUrl: null,
+      audioPath: null
+    }
+  ];
+
+  const sermonsData = sermons.length > 0 ? sermons : staticSermons;
+  const featuredSermon = sermonsData.find(s => s.featured) || null;
 
   return (
     <div>
@@ -740,7 +838,7 @@ export default function Home() {
           </motion.div>
 
           {/* Featured Sermon Banner */}
-          {sermons.filter(s => s.featured).length > 0 && (
+          {featuredSermon && (
             <motion.div
               className="row mb-5"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -754,7 +852,7 @@ export default function Home() {
                     <div className="col-md-4">
                       <div className="featured-sermon-bg d-flex align-items-center justify-content-center h-100" style={{
                         minHeight: '280px',
-                        backgroundImage: sermons.filter(s => s.featured)[0].image ? `url(${sermons.filter(s => s.featured)[0].image})` : 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800)',
+                        backgroundImage: featuredSermon.image ? `url(${featuredSermon.image})` : 'url(https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=800)',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         position: 'relative'
@@ -783,43 +881,43 @@ export default function Home() {
                           }}>
                             LATEST MESSAGE
                           </div>
-                          <small style={{color: '#6c757d'}}>{new Date(sermons.filter(s => s.featured)[0].date).toLocaleDateString()}</small>
+                          <small style={{color: '#6c757d'}}>{new Date(featuredSermon.date).toLocaleDateString()}</small>
                         </div>
-                        <h3 className="mb-3" style={{color: '#2c3e50', fontWeight: '600'}}>{sermons.filter(s => s.featured)[0].title}</h3>
+                        <h3 className="mb-3" style={{color: '#2c3e50', fontWeight: '600'}}>{featuredSermon.title}</h3>
                         <div className="row mb-3">
                           <div className="col-sm-6">
                             <p className="mb-1" style={{color: '#6c757d'}}>
                               <i className="fas fa-user me-2" style={{color: '#d4af37'}}></i>
-                              <strong style={{color: '#2c3e50'}}>Speaker:</strong> {sermons.filter(s => s.featured)[0].speaker}
+                              <strong style={{color: '#2c3e50'}}>Speaker:</strong> {featuredSermon.speaker}
                             </p>
                             <p className="mb-1" style={{color: '#6c757d'}}>
                               <i className="fas fa-calendar me-2" style={{color: '#d4af37'}}></i>
-                              <strong style={{color: '#2c3e50'}}>Date:</strong> {new Date(sermons.filter(s => s.featured)[0].date).toLocaleDateString()}
+                              <strong style={{color: '#2c3e50'}}>Date:</strong> {new Date(featuredSermon.date).toLocaleDateString()}
                             </p>
                           </div>
                           <div className="col-sm-6">
-                            {sermons.filter(s => s.featured)[0].scripture && (
+                            {featuredSermon.scripture && (
                               <p className="mb-1" style={{color: '#6c757d'}}>
                                 <i className="fas fa-book-open me-2" style={{color: '#d4af37'}}></i>
-                                <strong style={{color: '#2c3e50'}}>Scripture:</strong> {sermons.filter(s => s.featured)[0].scripture}
+                                <strong style={{color: '#2c3e50'}}>Scripture:</strong> {featuredSermon.scripture}
                               </p>
                             )}
-                            {sermons.filter(s => s.featured)[0].duration && (
+                            {featuredSermon.duration && (
                               <p className="mb-1" style={{color: '#6c757d'}}>
                                 <i className="fas fa-clock me-2" style={{color: '#d4af37'}}></i>
-                                <strong style={{color: '#2c3e50'}}>Duration:</strong> {sermons.filter(s => s.featured)[0].duration}
+                                <strong style={{color: '#2c3e50'}}>Duration:</strong> {featuredSermon.duration}
                               </p>
                             )}
                           </div>
                         </div>
                         <p style={{color: '#6c757d', lineHeight: '1.6'}}>
-                          {sermons.filter(s => s.featured)[0].description}
+                          {featuredSermon.description}
                         </p>
                         <div className="mt-4 d-flex flex-nowrap gap-2">
-                          {sermons.filter(s => s.featured)[0].audioPath && (
+                          {featuredSermon.audioPath && (
                             <button
                               className="btn px-3 py-2"
-                              onClick={() => playAudio(sermons.filter(s => s.featured)[0])}
+                              onClick={() => playAudio(featuredSermon)}
                               style={{
                                 background: 'linear-gradient(135deg, #d4af37, #ffd700)',
                                 border: 'none',
@@ -833,10 +931,10 @@ export default function Home() {
                               <i className="fas fa-play me-2"></i>Listen Now
                             </button>
                           )}
-                          {sermons.filter(s => s.featured)[0].videoUrl && (
+                          {featuredSermon.videoUrl && (
                             <button
                               className="btn px-3 py-2"
-                              onClick={() => playVideo(sermons.filter(s => s.featured)[0])}
+                              onClick={() => playVideo(featuredSermon)}
                               style={{
                                 background: 'transparent',
                                 border: '2px solid #d4af37',
@@ -872,7 +970,7 @@ export default function Home() {
             </div>
           </motion.div>
           <div className="row g-4">
-            {sermons.slice(0, 3).map((sermon, index) => (
+            {sermonsData.slice(0, 3).map((sermon, index) => (
               <motion.div
                 key={sermon.id}
                 className="col-lg-4 col-md-6"
@@ -1078,6 +1176,67 @@ export default function Home() {
           </motion.div>
 
           <div className="row g-4">
+            {ministries.length > 0 && ministries.map((ministry, index) => {
+              const backgroundImage = ministry.imagePath
+                ? `url(${ministry.imagePath})`
+                : 'linear-gradient(135deg, rgba(212,175,55,0.25), rgba(255,215,0,0.15))';
+
+              const delay = 0.1 + (index % 6) * 0.1;
+
+              return (
+                <motion.div
+                  key={ministry.id ?? `${ministry.title}-${index}`}
+                  className="col-lg-6 col-xl-4"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                >
+                  <div className="ministry-card position-relative overflow-hidden rounded-3 shadow-lg h-100" style={{ minHeight: '350px' }}>
+                    <div
+                      className="ministry-bg"
+                      style={{
+                        backgroundImage,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        height: '100%',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0
+                      }}
+                    ></div>
+                    <div
+                      className="ministry-overlay position-absolute w-100 h-100 d-flex flex-column justify-content-end p-4"
+                      style={{
+                        background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.8) 70%)',
+                        color: 'white'
+                      }}
+                    >
+                      <div className="ministry-icon mb-3">
+                        <i className={`${ministry.icon || 'fas fa-hands-helping'} fa-2x`} style={{ color: '#ffd700' }}></i>
+                      </div>
+                      <h4 className="ministry-title mb-2" style={{ fontWeight: '600' }}>
+                        {ministry.title}
+                      </h4>
+                      <p className="ministry-desc mb-3" style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>
+                        {ministry.description}
+                      </p>
+                      {ministry.schedule && (
+                        <div className="ministry-schedule">
+                          <small style={{ color: '#ffd700', fontWeight: '500' }}>{ministry.schedule}</small>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+
+            {ministries.length === 0 && (
+              <>
             {/* Children's Ministry */}
             <motion.div
               className="col-lg-6 col-xl-4"
@@ -1311,6 +1470,8 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
+              </>
+            )}
           </div>
 
           <motion.div
