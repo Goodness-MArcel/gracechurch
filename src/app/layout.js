@@ -2,8 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import ConditionalHeader from "../components/ConditionalHeader";
+import ConditionalFooter from "../components/ConditionalFooter";
 import PerformanceMonitor from "../components/PerformanceMonitor";
 
 const inter = Inter({
@@ -29,9 +29,9 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${inter.variable} font-sans`}>
         <PerformanceMonitor />
-        <Header />
+        <ConditionalHeader />
         <main>{children}</main>
-        <Footer />
+        <ConditionalFooter />
       </body>
     </html>
   );

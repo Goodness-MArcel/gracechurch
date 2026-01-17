@@ -1,0 +1,43 @@
+
+> gracechurch@0.1.0 dev
+> next dev
+
+Γû▓ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.244.219.156:3000
+- Environments: .env.local
+- Experiments (use with caution):
+  Γ£ô optimizeCss
+
+Γ£ô Starting...
+Γ£ô Ready in 1999ms
+ΓÜá Unsupported metadata viewport is configured in metadata export in /admin/sermons. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ΓÜá Unsupported metadata themeColor is configured in metadata export in /admin/sermons. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /admin/sermons 200 in 2.8s (compile: 1399ms, render: 1431ms)
+Γùï Compiling /api/auth/login ...
+[dotenv@17.2.3] injecting env (0) from .env.local -- tip: ≡ƒùé∩╕Å backup and recover secrets: https://dotenvx.com/ops
+Executing (53b40a3a-eda7-4577-82c6-3f0cf97e3aa4): START TRANSACTION;
+Executing (53b40a3a-eda7-4577-82c6-3f0cf97e3aa4): SELECT "id", "email", "password", "firstName", "lastName", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."email" = 'admin@gracechurch.com' FOR UPDATE;
+Executing (53b40a3a-eda7-4577-82c6-3f0cf97e3aa4): COMMIT;
+ POST /api/auth/login 200 in 15.0s (compile: 10.0s, render: 5.0s)
+Γùï Compiling /api/sermons ...
+Γ¿» Error: Cannot find module 'c:/Users/gudnex/Desktop/gracechurch/models': Unsupported external type Url for commonjs reference
+    at <unknown> (C:\Users\gudnex\Desktop\gracechurch\.next\dev\server\chunks\[root-of-the-server]__3c1c371b._.js:86:15)
+    at module evaluation (C:\Users\gudnex\Desktop\gracechurch\.next\dev\server\chunks\[root-of-the-server]__3c1c371b._.js:89:3)
+    at Object.<anonymous> (C:\Users\gudnex\Desktop\gracechurch\.next\dev\server\app\api\sermons\route.js:5:3) {
+  code: 'MODULE_NOT_FOUND',
+  page: '/api/sermons'
+}
+Time 14.7283
+ GET /api/sermons 500 in 9.1s (compile: 5.2s, render: 3.9s)
+Γ¿» Error: Cannot find module 'c:/Users/gudnex/Desktop/gracechurch/models': Unsupported external type Url for commonjs reference
+    at <unknown> (C:\Users\gudnex\Desktop\gracechurch\.next\dev\server\chunks\[root-of-the-server]__3c1c371b._.js:86:15)
+    at module evaluation (C:\Users\gudnex\Desktop\gracechurch\.next\dev\server\chunks\[root-of-the-server]__3c1c371b._.js:89:3)
+    at Object.<anonymous> (C:\Users\gudnex\Desktop\gracechurch\.next\dev\server\app\api\sermons\route.js:5:3) {
+  code: 'MODULE_NOT_FOUND',
+  page: '/api/sermons'
+}
+Time 9.5083
+ GET /api/sermons 500 in 236ms (compile: 182ms, render: 54ms)
