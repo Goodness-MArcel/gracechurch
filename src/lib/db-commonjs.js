@@ -1,5 +1,9 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config({ path: '.env.local' });
+
+// Only load dotenv on local development, not on Vercel
+if (!process.env.VERCEL) {
+  require('dotenv').config({ path: '.env.local' });
+}
 
 // Force Postgres driver dependencies to be included in server bundles (Vercel/Turbopack).
 // Sequelize dynamically requires these, which can be missed by output tracing.

@@ -11,17 +11,27 @@ export default function AdminLayout({ children }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [authChecking, setAuthChecking] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
+    // Load sidebar state from localStorage
+    const savedSidebarState = localStorage.getItem('admin_sidebar_collapsed');
+    if (savedSidebarState !== null) {
+      setSidebarCollapsed(JSON.parse(savedSidebarState));
+    }
+    
     checkAuthStatus();
   }, []);
 
   const checkAuthStatus = async () => {
     const token = localStorage.getItem('admin_token');
-    if (!token) return;
+    if (!token) {
+      setAuthChecking(false);
+      return;
+    }
 
     try {
       const response = await fetch('/api/auth/verify', {
@@ -40,6 +50,8 @@ export default function AdminLayout({ children }) {
     } catch (error) {
       console.error('Auth check failed:', error);
       localStorage.removeItem('admin_token');
+    } finally {
+      setAuthChecking(false);
     }
   };
 
@@ -83,6 +95,12 @@ export default function AdminLayout({ children }) {
     router.push('/');
   };
 
+  const toggleSidebar = () => {
+    const newState = !sidebarCollapsed;
+    setSidebarCollapsed(newState);
+    localStorage.setItem('admin_sidebar_collapsed', JSON.stringify(newState));
+  };
+
   const navigationItems = [
     { href: '/admin', label: 'Overview', icon: 'fas fa-home' },
     { href: '/admin/dashboard', label: 'Dashboard', icon: 'fas fa-tachometer-alt' },
@@ -92,6 +110,19 @@ export default function AdminLayout({ children }) {
     { href: '/admin/ministries', label: 'Ministries', icon: 'fas fa-hands-helping' },
     { href: '/admin/donations', label: 'Donations', icon: 'fas fa-hand-holding-heart' }
   ];
+
+  if (authChecking) {
+    return (
+      <div className="min-vh-100 d-flex align-items-center justify-content-center" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)'}}>
+        <div className="text-center">
+          <div className="spinner-border text-primary mb-3" role="status" style={{width: '3rem', height: '3rem'}}>
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <h5 style={{color: '#2c3e50'}}>Verifying authentication...</h5>
+        </div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -191,7 +222,7 @@ export default function AdminLayout({ children }) {
           )} */}
           <button
             className="btn btn-link text-white p-0"
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onClick={toggleSidebar}
             style={{fontSize: '1.2rem'}}
           >
             <i className={`fas fa-${sidebarCollapsed ? 'chevron-right' : 'chevron-left'}`}></i>
@@ -269,7 +300,7 @@ export default function AdminLayout({ children }) {
           <div>
             <button
               className="btn btn-link text-dark d-md-none p-0 me-3"
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              onClick={toggleSidebar}
             >
               <i className="fas fa-bars fa-lg"></i>
             </button>
