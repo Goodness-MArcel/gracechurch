@@ -6,8 +6,13 @@ import { db } from '@/lib/db';
 const uploadDir = path.join(process.cwd(), 'public', 'images', 'ministries');
 
 function ensureUploadDir() {
+  console.log('Ensuring upload directory exists:', uploadDir);
   if (!fs.existsSync(uploadDir)) {
+    console.log('Creating upload directory...');
     fs.mkdirSync(uploadDir, { recursive: true });
+    console.log('Upload directory created');
+  } else {
+    console.log('Upload directory already exists');
   }
 }
 
@@ -53,6 +58,8 @@ export async function PUT(request, context) {
     const { id } = params || {};
     const ministryId = Number.parseInt(id, 10);
 
+    console.log('PUT request for ministry ID:', ministryId);
+
     if (Number.isNaN(ministryId)) {
       return NextResponse.json(
         { success: false, message: 'Invalid ministry id' },
@@ -69,6 +76,9 @@ export async function PUT(request, context) {
     }
 
     const formData = await request.formData();
+    console.log('Form data keys:', Array.from(formData.keys()));
+    console.log('Image file present:', formData.has('image'));
+
     const title = formData.get('title');
     const description = formData.get('description');
     const schedule = formData.get('schedule');
@@ -78,6 +88,8 @@ export async function PUT(request, context) {
     const active = formData.get('active') === 'true';
     const imageFile = formData.get('image');
     const removeImage = formData.get('removeImage') === 'true';
+
+    console.log('Parsed data:', { title, description, active, hasImage: !!imageFile, removeImage });
 
     if (!title || !description) {
       return NextResponse.json(
@@ -106,26 +118,49 @@ export async function PUT(request, context) {
     }
 
     if (imageFile && imageFile.size > 0) {
-      ensureUploadDir();
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      const extension = path.extname(imageFile.name) || '.jpg';
-      const filename = `ministry-${uniqueSuffix}${extension}`;
-      const filePath = path.join(uploadDir, filename);
-      const bytes = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      fs.writeFileSync(filePath, buffer);
-      ministryData.imagePath = `/images/ministries/${filename}`;
+      console.log('Processing image upload...', {
+        name: imageFile.name,
+        size: imageFile.size,
+        type: imageFile.type
+      });
 
-      if (existingMinistry.imagePath) {
-        const oldPath = path.join(process.cwd(), 'public', existingMinistry.imagePath);
-        if (fs.existsSync(oldPath)) {
-          fs.unlinkSync(oldPath);
+      try {
+        ensureUploadDir();
+
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const extension = path.extname(imageFile.name) || '.jpg';
+        const filename = `ministry-${uniqueSuffix}${extension}`;
+        const filePath = path.join(uploadDir, filename);
+
+        console.log('Saving file to:', filePath);
+
+        const bytes = await imageFile.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        fs.writeFileSync(filePath, buffer);
+        ministryData.imagePath = `/images/ministries/${filename}`;
+
+        console.log('File saved successfully, path:', ministryData.imagePath);
+
+        if (existingMinistry.imagePath) {
+          const oldPath = path.join(process.cwd(), 'public', existingMinistry.imagePath);
+          if (fs.existsSync(oldPath)) {
+            fs.unlinkSync(oldPath);
+            console.log('Old file deleted:', oldPath);
+          }
         }
+      } catch (fileError) {
+        console.error('Error processing image file:', fileError);
+        return NextResponse.json(
+          { success: false, message: 'Failed to process image file' },
+          { status: 500 }
+        );
       }
     }
 
+    console.log('Updating ministry with data:', ministryData);
     await existingMinistry.update(ministryData);
     const updated = await db.Ministry.findByPk(ministryId);
+    console.log('Ministry updated successfully:', updated.id);
 
     return NextResponse.json({
       success: true,

@@ -87,7 +87,13 @@ export default function MinistriesManagement() {
       const url = editingMinistry ? `/api/ministries/${editingMinistry.id}` : '/api/ministries';
       const method = editingMinistry ? 'PUT' : 'POST';
 
-      const response = await fetch(url, { method, body: submitData });
+      const response = await fetch(url, { 
+        method, 
+        body: submitData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+        }
+      });
       const result = await response.json();
 
       if (result.success) {
@@ -132,7 +138,12 @@ export default function MinistriesManagement() {
     if (!confirm('Are you sure you want to delete this ministry?')) return;
 
     try {
-      const response = await fetch(`/api/ministries/${numericId}`, { method: 'DELETE' });
+      const response = await fetch(`/api/ministries/${numericId}`, { 
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+        }
+      });
       const result = await response.json();
 
       if (result.success) {
@@ -193,7 +204,10 @@ export default function MinistriesManagement() {
 
       const response = await fetch(`/api/ministries/${numericId}`, {
         method: 'PUT',
-        body: updateData
+        body: updateData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+        }
       });
 
       const result = await response.json();
