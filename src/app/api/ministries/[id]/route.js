@@ -7,12 +7,30 @@ const uploadDir = path.join(process.cwd(), 'public', 'images', 'ministries');
 
 function ensureUploadDir() {
   console.log('Ensuring upload directory exists:', uploadDir);
-  if (!fs.existsSync(uploadDir)) {
-    console.log('Creating upload directory...');
-    fs.mkdirSync(uploadDir, { recursive: true });
-    console.log('Upload directory created');
-  } else {
-    console.log('Upload directory already exists');
+  try {
+    // Create parent directories first
+    const parentDir = path.dirname(uploadDir);
+    if (!fs.existsSync(parentDir)) {
+      fs.mkdirSync(parentDir, { recursive: true });
+      console.log('Parent directory created:', parentDir);
+    }
+
+    if (!fs.existsSync(uploadDir)) {
+      console.log('Creating upload directory...');
+      fs.mkdirSync(uploadDir, { recursive: true });
+      console.log('Upload directory created');
+    } else {
+      console.log('Upload directory already exists');
+    }
+
+    // Test write permissions
+    const testFile = path.join(uploadDir, 'test.tmp');
+    fs.writeFileSync(testFile, 'test');
+    fs.unlinkSync(testFile);
+    console.log('Directory write permissions confirmed');
+  } catch (dirError) {
+    console.error('Directory creation/access error:', dirError);
+    throw new Error(`Cannot create or access upload directory: ${dirError.message}`);
   }
 }
 
@@ -89,7 +107,16 @@ export async function PUT(request, context) {
     const imageFile = formData.get('image');
     const removeImage = formData.get('removeImage') === 'true';
 
-    console.log('Parsed data:', { title, description, active, hasImage: !!imageFile, removeImage });
+    console.log('Parsed data:', {
+      title,
+      description,
+      active,
+      hasImage: !!imageFile,
+      removeImage,
+      imageFileType: imageFile ? typeof imageFile : 'null',
+      imageFileName: imageFile?.name,
+      imageFileSize: imageFile?.size
+    });
 
     if (!title || !description) {
       return NextResponse.json(
@@ -121,7 +148,9 @@ export async function PUT(request, context) {
       console.log('Processing image upload...', {
         name: imageFile.name,
         size: imageFile.size,
-        type: imageFile.type
+        type: imageFile.type,
+        hasArrayBuffer: typeof imageFile.arrayBuffer === 'function',
+        hasStream: typeof imageFile.stream === 'function'
       });
 
       try {
@@ -134,11 +163,39 @@ export async function PUT(request, context) {
 
         console.log('Saving file to:', filePath);
 
-        const bytes = await imageFile.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        fs.writeFileSync(filePath, buffer);
-        ministryData.imagePath = `/images/ministries/${filename}`;
+        // Handle file data extraction more robustly
+        let buffer;
+        try {
+          console.log('Trying arrayBuffer method...');
+          const bytes = await imageFile.arrayBuffer();
+          buffer = Buffer.from(bytes);
+          console.log('arrayBuffer successful, buffer size:', buffer.length);
+        } catch (bufferError) {
+          console.error('Error reading file buffer with arrayBuffer:', bufferError);
+          // Fallback: try stream approach
+          console.log('Trying stream method...');
+          const chunks = [];
+          for await (const chunk of imageFile.stream()) {
+            chunks.push(chunk);
+          }
+          buffer = Buffer.concat(chunks);
+          console.log('Stream successful, buffer size:', buffer.length);
+        }
 
+        // Write file with error handling
+        console.log('Writing file to disk...');
+        fs.writeFileSync(filePath, buffer);
+        console.log('File written successfully, size:', buffer.length);
+
+        // Verify file was written
+        if (fs.existsSync(filePath)) {
+          const stats = fs.statSync(filePath);
+          console.log('File verified on disk, size:', stats.size);
+        } else {
+          throw new Error('File was not written to disk');
+        }
+
+        ministryData.imagePath = `/images/ministries/${filename}`;
         console.log('File saved successfully, path:', ministryData.imagePath);
 
         if (existingMinistry.imagePath) {
@@ -151,7 +208,7 @@ export async function PUT(request, context) {
       } catch (fileError) {
         console.error('Error processing image file:', fileError);
         return NextResponse.json(
-          { success: false, message: 'Failed to process image file' },
+          { success: false, message: `Failed to process image file: ${fileError.message}` },
           { status: 500 }
         );
       }
