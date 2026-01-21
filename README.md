@@ -92,3 +92,4 @@ Use the admin credentials created during setup to log in.
 - **ORM**: Sequelize
 - **Authentication**: JWT (jsonwebtoken)
 - **Password Hashing**: bcryptjs
+- goodnsa

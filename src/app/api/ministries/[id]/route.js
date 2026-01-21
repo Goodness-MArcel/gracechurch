@@ -6,31 +6,8 @@ import { db } from '@/lib/db';
 const uploadDir = path.join(process.cwd(), 'public', 'images', 'ministries');
 
 function ensureUploadDir() {
-  console.log('Ensuring upload directory exists:', uploadDir);
-  try {
-    // Create parent directories first
-    const parentDir = path.dirname(uploadDir);
-    if (!fs.existsSync(parentDir)) {
-      fs.mkdirSync(parentDir, { recursive: true });
-      console.log('Parent directory created:', parentDir);
-    }
-
-    if (!fs.existsSync(uploadDir)) {
-      console.log('Creating upload directory...');
-      fs.mkdirSync(uploadDir, { recursive: true });
-      console.log('Upload directory created');
-    } else {
-      console.log('Upload directory already exists');
-    }
-
-    // Test write permissions
-    const testFile = path.join(uploadDir, 'test.tmp');
-    fs.writeFileSync(testFile, 'test');
-    fs.unlinkSync(testFile);
-    console.log('Directory write permissions confirmed');
-  } catch (dirError) {
-    console.error('Directory creation/access error:', dirError);
-    throw new Error(`Cannot create or access upload directory: ${dirError.message}`);
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
   }
 }
 
@@ -148,71 +125,32 @@ export async function PUT(request, context) {
       console.log('Processing image upload...', {
         name: imageFile.name,
         size: imageFile.size,
-        type: imageFile.type,
-        hasArrayBuffer: typeof imageFile.arrayBuffer === 'function',
-        hasStream: typeof imageFile.stream === 'function'
+        type: imageFile.type
       });
 
-      try {
-        ensureUploadDir();
+      ensureUploadDir();
 
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const extension = path.extname(imageFile.name) || '.jpg';
-        const filename = `ministry-${uniqueSuffix}${extension}`;
-        const filePath = path.join(uploadDir, filename);
-
-        console.log('Saving file to:', filePath);
-
-        // Handle file data extraction more robustly
-        let buffer;
-        try {
-          console.log('Trying arrayBuffer method...');
-          const bytes = await imageFile.arrayBuffer();
-          buffer = Buffer.from(bytes);
-          console.log('arrayBuffer successful, buffer size:', buffer.length);
-        } catch (bufferError) {
-          console.error('Error reading file buffer with arrayBuffer:', bufferError);
-          // Fallback: try stream approach
-          console.log('Trying stream method...');
-          const chunks = [];
-          for await (const chunk of imageFile.stream()) {
-            chunks.push(chunk);
-          }
-          buffer = Buffer.concat(chunks);
-          console.log('Stream successful, buffer size:', buffer.length);
+      // Delete old image if exists
+      if (existingMinistry.imagePath) {
+        const oldPath = path.join(process.cwd(), 'public', existingMinistry.imagePath);
+        if (fs.existsSync(oldPath)) {
+          fs.unlinkSync(oldPath);
         }
-
-        // Write file with error handling
-        console.log('Writing file to disk...');
-        fs.writeFileSync(filePath, buffer);
-        console.log('File written successfully, size:', buffer.length);
-
-        // Verify file was written
-        if (fs.existsSync(filePath)) {
-          const stats = fs.statSync(filePath);
-          console.log('File verified on disk, size:', stats.size);
-        } else {
-          throw new Error('File was not written to disk');
-        }
-
-        ministryData.imagePath = `/images/ministries/${filename}`;
-        console.log('File saved successfully, path:', ministryData.imagePath);
-
-        if (existingMinistry.imagePath) {
-          const oldPath = path.join(process.cwd(), 'public', existingMinistry.imagePath);
-          if (fs.existsSync(oldPath)) {
-            fs.unlinkSync(oldPath);
-            console.log('Old file deleted:', oldPath);
-          }
-        }
-      } catch (fileError) {
-        console.error('Error processing image file:', fileError);
-        return NextResponse.json(
-          { success: false, message: `Failed to process image file: ${fileError.message}` },
-          { status: 500 }
-        );
       }
-    }
+
+      // Generate unique filename
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      const extension = path.extname(imageFile.name) || '.jpg';
+      const filename = `ministry-${uniqueSuffix}${extension}`;
+      const filePath = path.join(uploadDir, filename);
+
+      // Convert file to buffer and save
+      const bytes = await imageFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      fs.writeFileSync(filePath, buffer);
+
+      ministryData.imagePath = `/images/ministries/${filename}`;
+      console.log('File saved successfully, path:', ministryData.imagePath);
 
     console.log('Updating ministry with data:', ministryData);
     await existingMinistry.update(ministryData);
