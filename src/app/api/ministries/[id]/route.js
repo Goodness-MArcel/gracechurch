@@ -151,6 +151,7 @@ export async function PUT(request, context) {
 
       ministryData.imagePath = `/images/ministries/${filename}`;
       console.log('File saved successfully, path:', ministryData.imagePath);
+    }
 
     console.log('Updating ministry with data:', ministryData);
     await existingMinistry.update(ministryData);
