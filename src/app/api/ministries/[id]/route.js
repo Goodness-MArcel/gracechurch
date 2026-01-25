@@ -40,6 +40,21 @@ async function resolveParams(context) {
   return typeof context.params?.then === 'function' ? await context.params : context.params;
 }
 
+let hasImageColumnCache = null;
+async function ministryHasImageColumn() {
+  if (hasImageColumnCache !== null) return hasImageColumnCache;
+  try {
+    const qi = db.sequelize.getQueryInterface();
+    const desc = await qi.describeTable('Ministries');
+    hasImageColumnCache = !!desc.image;
+    return hasImageColumnCache;
+  } catch (e) {
+    console.warn('Could not describe Ministries table to detect image column:', e);
+    hasImageColumnCache = false;
+    return false;
+  }
+}
+
 export async function GET(request, context) {
   try {
     const params = await resolveParams(context);
@@ -78,9 +93,10 @@ export async function PUT(request, context) {
     const { id } = params || {};
     const ministryId = Number.parseInt(id, 10);
 
-    console.log('PUT request for ministry ID:', ministryId);
+    console.log('PUT /api/ministries/[id]: Starting request for ID:', ministryId);
 
     if (Number.isNaN(ministryId)) {
+      console.log('Invalid ministry ID:', id);
       return NextResponse.json(
         { success: false, message: 'Invalid ministry id' },
         { status: 400 }
@@ -89,6 +105,7 @@ export async function PUT(request, context) {
 
     const existingMinistry = await db.Ministry.findByPk(ministryId);
     if (!existingMinistry) {
+      console.log('Ministry not found:', ministryId);
       return NextResponse.json(
         { success: false, message: 'Ministry not found' },
         { status: 404 }
@@ -97,8 +114,6 @@ export async function PUT(request, context) {
 
     const formData = await request.formData();
     console.log('Form data keys:', Array.from(formData.keys()));
-    console.log('Image file present:', formData.has('image'));
-
     const title = formData.get('title');
     const description = formData.get('description');
     const schedule = formData.get('schedule');
@@ -138,9 +153,10 @@ export async function PUT(request, context) {
       active
     };
 
-    if (removeImage && existingMinistry.imagePath) {
+    if (removeImage && (existingMinistry.imagePath || existingMinistry.image)) {
       try {
-        const oldPath = path.join(process.cwd(), 'public', normalizePublicPath(existingMinistry.imagePath));
+        const stored = normalizePublicPath(existingMinistry.imagePath || existingMinistry.image);
+        const oldPath = path.join(process.cwd(), 'public', stored);
         if (fs.existsSync(oldPath)) {
           fs.unlinkSync(oldPath);
         }
@@ -148,6 +164,9 @@ export async function PUT(request, context) {
         console.warn('Failed to remove old ministry image:', e);
       }
       ministryData.imagePath = null;
+      if (await ministryHasImageColumn()) {
+        ministryData.image = null;
+      }
     }
 
     if (imageFile && imageFile.size > 0) {
@@ -160,9 +179,10 @@ export async function PUT(request, context) {
       ensureUploadDir();
 
       // Delete old image if exists
-      if (existingMinistry.imagePath) {
+      if (existingMinistry.imagePath || existingMinistry.image) {
         try {
-          const oldPath = path.join(process.cwd(), 'public', normalizePublicPath(existingMinistry.imagePath));
+          const stored = normalizePublicPath(existingMinistry.imagePath || existingMinistry.image);
+          const oldPath = path.join(process.cwd(), 'public', stored);
           if (fs.existsSync(oldPath)) {
             fs.unlinkSync(oldPath);
           }
@@ -190,7 +210,11 @@ export async function PUT(request, context) {
         );
       }
 
-      ministryData.imagePath = `/images/ministries/${filename}`;
+      const publicPath = `/images/ministries/${filename}`;
+      ministryData.imagePath = publicPath;
+      if (await ministryHasImageColumn()) {
+        ministryData.image = publicPath;
+      }
       console.log('File saved successfully, path:', ministryData.imagePath);
     }
 
@@ -235,9 +259,10 @@ export async function DELETE(request, context) {
       );
     }
 
-    if (ministry.imagePath) {
+    if (ministry.imagePath || ministry.image) {
       try {
-        const imagePath = path.join(process.cwd(), 'public', normalizePublicPath(ministry.imagePath));
+        const stored = normalizePublicPath(ministry.imagePath || ministry.image);
+        const imagePath = path.join(process.cwd(), 'public', stored);
         if (fs.existsSync(imagePath)) {
           fs.unlinkSync(imagePath);
         }

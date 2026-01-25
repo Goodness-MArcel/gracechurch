@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
+    // Optional: support legacy column name used by other models/routes
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     coordinator: {
       type: DataTypes.STRING,
       allowNull: true

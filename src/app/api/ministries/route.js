@@ -11,6 +11,21 @@ function ensureUploadDir() {
   }
 }
 
+let hasImageColumnCache = null;
+async function ministryHasImageColumn() {
+  if (hasImageColumnCache !== null) return hasImageColumnCache;
+  try {
+    const qi = db.sequelize.getQueryInterface();
+    const desc = await qi.describeTable('Ministries');
+    hasImageColumnCache = !!desc.image;
+    return hasImageColumnCache;
+  } catch (e) {
+    console.warn('Could not describe Ministries table to detect image column:', e);
+    hasImageColumnCache = false;
+    return false;
+  }
+}
+
 export async function GET(request) {
   try {
     const url = new URL(request.url);
@@ -82,7 +97,9 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    console.log('POST /api/ministries: Starting request');
     const formData = await request.formData();
+    console.log('Form data keys:', Array.from(formData.keys()));
     const title = formData.get('title');
     const description = formData.get('description');
     const schedule = formData.get('schedule');
@@ -92,7 +109,18 @@ export async function POST(request) {
     const active = formData.get('active') === 'true';
     const imageFile = formData.get('image');
 
+    console.log('Parsed data:', {
+      title,
+      description,
+      active,
+      hasImage: !!imageFile,
+      imageFileName: imageFile?.name,
+      imageFileSize: imageFile?.size,
+      imageFileType: imageFile?.type
+    });
+
     if (!title || !description) {
+      console.log('Validation failed: missing title or description');
       return NextResponse.json(
         { success: false, message: 'Title and description are required' },
         { status: 400 }
@@ -119,7 +147,11 @@ export async function POST(request) {
       const bytes = await imageFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
       fs.writeFileSync(filePath, buffer);
-      ministryData.imagePath = `/images/ministries/${filename}`;
+      const publicPath = `/images/ministries/${filename}`;
+      ministryData.imagePath = publicPath;
+      if (await ministryHasImageColumn()) {
+        ministryData.image = publicPath; // support legacy/alternate column name
+      }
     }
 
     const ministry = await db.Ministry.create(ministryData);
