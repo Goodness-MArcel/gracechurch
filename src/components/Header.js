@@ -5,7 +5,7 @@ export default function Header() {
     <header className="position-absolute w-100" style={{ top: 0, zIndex: 10 }}>
       <nav className="navbar navbar-expand-lg navbar-light" style={{ background: 'transparent' }}>
         <div className="container-fluid">
-          <Link className="navbar-brand fw-bold" href="#hero" style={{ color: 'white' }}>Grace of God Church</Link>
+          <Link className="navbar-brand fw-bold" href="#hero" style={{ color: 'white' }}>Grace of God Mission</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

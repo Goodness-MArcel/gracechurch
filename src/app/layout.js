@@ -14,8 +14,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Grace of God Church",
-  description: "Welcome to Grace of God Church - a place of worship, community, and faith.",
+  title: "Grace of God Mission",
+  description: "Welcome to Grace of God Mission - a place of worship, community, and faith.",
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#d4af37',
   verification: {

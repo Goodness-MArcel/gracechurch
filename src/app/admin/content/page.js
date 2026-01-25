@@ -6,8 +6,8 @@ export default function ContentManagement() {
   const [activeTab, setActiveTab] = useState('about');
   const [content, setContent] = useState({
     about: {
-      title: 'About Grace of God Church',
-      content: 'Grace of God Church is a welcoming community dedicated to spreading God\'s love and serving our neighbors. Founded in 1995, we have been a cornerstone of faith and fellowship in our community.',
+      title: 'About Grace of God Mission',
+      content: 'Grace of God Mission is a welcoming community dedicated to spreading God\'s love and serving our neighbors. Founded in 1995, we have been a cornerstone of faith and fellowship in our community.',
       mission: 'To spread God\'s love, serve our community, and grow in faith together.',
       vision: 'To be a beacon of hope and love in our community, welcoming all who seek spiritual growth.'
     },

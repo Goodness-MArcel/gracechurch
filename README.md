@@ -1,6 +1,6 @@
 # Grace Church Website
 
-A Next.js application for Grace of God Church with admin panel and authentication.
+A Next.js application for Grace of God Mission with admin panel and authentication.
 
 ## Features
 

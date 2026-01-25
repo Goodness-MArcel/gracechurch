@@ -130,7 +130,7 @@ export default function AdminLayout({ children }) {
         <div className="card shadow-lg" style={{maxWidth: '400px', width: '100%'}}>
           <div className="card-body p-4">
             <div className="text-center mb-4">
-              <h2 style={{color: '#2c3e50', fontWeight: '700'}}>Grace of God Church</h2>
+              <h2 style={{color: '#2c3e50', fontWeight: '700'}}>Grace of God Mission</h2>
               <h4 style={{color: '#d4af37'}}>Admin Login</h4>
             </div>
             <form onSubmit={handleLogin}>

@@ -51,7 +51,7 @@ export default function Admin() {
   return (
     <div>
       <div className="mb-4">
-        <p className="text-muted mb-4">Welcome to the Grace of God Church admin panel. Choose a section from the sidebar to get started.</p>
+        <p className="text-muted mb-4">Welcome to the Grace of God Mission admin panel. Choose a section from the sidebar to get started.</p>
       </div>
 
       <div className="row">

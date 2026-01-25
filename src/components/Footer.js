@@ -15,7 +15,7 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h5 style={{color: '#2c3e50', fontWeight: '700'}}>Grace of God Church</h5>
+            <h5 style={{color: '#2c3e50', fontWeight: '700'}}>Grace of God Mission</h5>
             <p style={{color: '#6c757d'}}><i className="fas fa-map-marker-alt me-2" style={{color: '#d4af37'}}></i>123 Faith Street<br />Springfield, IL 62701</p>
             <p style={{color: '#6c757d'}}><i className="fas fa-phone me-2" style={{color: '#d4af37'}}></i>Phone: (555) 123-4567<br /><i className="fas fa-envelope me-2" style={{color: '#d4af37'}}></i>Email: info@graceofgodchurch.org</p>
           </motion.div>
@@ -92,7 +92,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.5 }}
           viewport={{ once: true }}
         >
-          <p style={{color: '#6c757d'}}>&copy; 2026 Grace of God Church. All rights reserved.</p>
+          <p style={{color: '#6c757d'}}>&copy; 2026 Grace of God Mission. All rights reserved.</p>
           <p>
             <Link href="#" style={{color: '#6c757d', textDecoration: 'none', marginRight: '15px'}}>Privacy Policy</Link>
             <span style={{color: '#dee2e6'}}>|</span>
