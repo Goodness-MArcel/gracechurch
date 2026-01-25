@@ -11,6 +11,31 @@ function ensureUploadDir() {
   }
 }
 
+function normalizePublicPath(p) {
+  if (!p) return '';
+  // Remove leading slash so path.join doesn't discard previous segments
+  return p.startsWith('/') ? p.slice(1) : p;
+}
+
+function getSafeImageExtension(file) {
+  const nameExt = file?.name ? path.extname(file.name) : '';
+  if (nameExt) return nameExt;
+  const type = file?.type || '';
+  switch (type) {
+    case 'image/jpeg':
+    case 'image/jpg':
+      return '.jpg';
+    case 'image/png':
+      return '.png';
+    case 'image/webp':
+      return '.webp';
+    case 'image/gif':
+      return '.gif';
+    default:
+      return '.jpg';
+  }
+}
+
 async function resolveParams(context) {
   return typeof context.params?.then === 'function' ? await context.params : context.params;
 }
@@ -114,9 +139,13 @@ export async function PUT(request, context) {
     };
 
     if (removeImage && existingMinistry.imagePath) {
-      const oldPath = path.join(process.cwd(), 'public', existingMinistry.imagePath);
-      if (fs.existsSync(oldPath)) {
-        fs.unlinkSync(oldPath);
+      try {
+        const oldPath = path.join(process.cwd(), 'public', normalizePublicPath(existingMinistry.imagePath));
+        if (fs.existsSync(oldPath)) {
+          fs.unlinkSync(oldPath);
+        }
+      } catch (e) {
+        console.warn('Failed to remove old ministry image:', e);
       }
       ministryData.imagePath = null;
     }
@@ -132,22 +161,34 @@ export async function PUT(request, context) {
 
       // Delete old image if exists
       if (existingMinistry.imagePath) {
-        const oldPath = path.join(process.cwd(), 'public', existingMinistry.imagePath);
-        if (fs.existsSync(oldPath)) {
-          fs.unlinkSync(oldPath);
+        try {
+          const oldPath = path.join(process.cwd(), 'public', normalizePublicPath(existingMinistry.imagePath));
+          if (fs.existsSync(oldPath)) {
+            fs.unlinkSync(oldPath);
+          }
+        } catch (e) {
+          console.warn('Failed to remove previous image:', e);
         }
       }
 
       // Generate unique filename
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      const extension = path.extname(imageFile.name) || '.jpg';
+      const extension = getSafeImageExtension(imageFile);
       const filename = `ministry-${uniqueSuffix}${extension}`;
       const filePath = path.join(uploadDir, filename);
 
       // Convert file to buffer and save
-      const bytes = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      fs.writeFileSync(filePath, buffer);
+      try {
+        const bytes = await imageFile.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        fs.writeFileSync(filePath, buffer);
+      } catch (e) {
+        console.error('Failed to write ministry image:', e);
+        return NextResponse.json(
+          { success: false, message: 'Image upload failed' },
+          { status: 400 }
+        );
+      }
 
       ministryData.imagePath = `/images/ministries/${filename}`;
       console.log('File saved successfully, path:', ministryData.imagePath);
@@ -195,9 +236,13 @@ export async function DELETE(request, context) {
     }
 
     if (ministry.imagePath) {
-      const imagePath = path.join(process.cwd(), 'public', ministry.imagePath);
-      if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);
+      try {
+        const imagePath = path.join(process.cwd(), 'public', normalizePublicPath(ministry.imagePath));
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      } catch (e) {
+        console.warn('Failed to delete ministry image during delete:', e);
       }
     }
 
