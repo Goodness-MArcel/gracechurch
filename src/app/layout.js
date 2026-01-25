@@ -18,6 +18,9 @@ export const metadata = {
   description: "Welcome to Grace of God Church - a place of worship, community, and faith.",
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#d4af37',
+  verification: {
+    google: 'dfaf54a3895e75f4',
+  },
 };
 
 export default function RootLayout({ children }) {
