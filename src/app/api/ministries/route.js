@@ -163,6 +163,8 @@ export async function POST(request) {
     }, { status: 201 });
   } catch (error) {
     console.error('Error creating ministry:', error);
+    console.error('Error stack:', error.stack);
+    console.error('Error message:', error.message);
     return NextResponse.json(
       { success: false, message: 'Failed to create ministry' },
       { status: 500 }

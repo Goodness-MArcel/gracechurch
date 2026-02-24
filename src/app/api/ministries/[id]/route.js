@@ -230,6 +230,8 @@ export async function PUT(request, context) {
     });
   } catch (error) {
     console.error('Error updating ministry:', error);
+    console.error('Error stack:', error.stack);
+    console.error('Error message:', error.message);
     return NextResponse.json(
       { success: false, message: 'Failed to update ministry' },
       { status: 500 }
