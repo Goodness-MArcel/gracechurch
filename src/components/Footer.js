@@ -16,8 +16,8 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h5 style={{color: '#2c3e50', fontWeight: '700'}}>Grace of God Mission</h5>
-            <p style={{color: '#6c757d'}}><i className="fas fa-map-marker-alt me-2" style={{color: '#d4af37'}}></i>123 Faith Street<br />Springfield, IL 62701</p>
-            <p style={{color: '#6c757d'}}><i className="fas fa-phone me-2" style={{color: '#d4af37'}}></i>Phone: (555) 123-4567<br /><i className="fas fa-envelope me-2" style={{color: '#d4af37'}}></i>Email: info@graceofgodchurch.org</p>
+            <p style={{color: '#6c757d'}}><i className="fas fa-map-marker-alt me-2" style={{color: '#d4af37'}}></i>5 - 7 New Staduim Lane<br />Off Mcc Road</p>
+            <p style={{color: '#6c757d'}}><i className="fas fa-phone me-2" style={{color: '#d4af37'}}></i>Phone: 08034012927<br /><i className="fas fa-envelope me-2" style={{color: '#d4af37'}}></i>Email: info@graceofgodchurch.org</p>
           </motion.div>
           <motion.div
             className="col-md-3 mb-4"
@@ -27,9 +27,9 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h5 style={{color: '#2c3e50', fontWeight: '600'}}><i className="fas fa-clock me-2" style={{color: '#d4af37'}}></i>Service Times</h5>
-            <p style={{color: '#6c757d'}}>Sunday Worship: 10:00 AM</p>
-            <p style={{color: '#6c757d'}}>Sunday School: 9:00 AM</p>
-            <p style={{color: '#6c757d'}}>Wednesday Prayer: 7:00 PM</p>
+            <p style={{color: '#6c757d'}}>Sunday Worship: 07:30 AM</p>
+            <p style={{color: '#6c757d'}}>Midweek Service: 5:30 PM</p>
+            <p style={{color: '#6c757d'}}>Tuesday Faith Clinic: 10:00 AM</p>
           </motion.div>
           <motion.div
             className="col-md-3 mb-4"

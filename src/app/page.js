@@ -484,7 +484,7 @@ export default function Home() {
                         style={{ color: "#2c3e50", fontWeight: "600" }}
                         className="text-start"
                       >
-                        Slogan: <i>Grace: an end to graceless life.</i>
+                        Slogan: <i>Grace - an end to graceless life.</i>
                       </h5>
                       <p
                         style={{
@@ -1053,7 +1053,7 @@ export default function Home() {
                   </div>
                 </div>
                 <motion.div
-                  className="d-flex justify-content-center mb-4 border"
+                  className="d-flex justify-content-center mb-4 "
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
@@ -2332,14 +2332,14 @@ export default function Home() {
                           Visit Us
                         </h5>
                         <p className="mb-0 text-muted">
-                          Grace&nbsp;of&nbsp;God Church
+                          Grace&nbsp;of&nbsp;God Mission
                         </p>
                       </div>
                     </div>
                     <p className="text-muted mb-0">
                       5 - 7 New Stadium Lane
                       <br />
-                      Owerri,&nbsp;IL&nbsp;
+                      Owerri,&nbsp;&nbsp;
                       <br />
                       Imo State,&nbsp;Nigeria
                     </p>
@@ -2383,11 +2383,10 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-muted mb-0">
-                      <strong>Main:</strong> (555) 123-4567
+                      <strong>Main:</strong> 08034012927
                       <br />
-                      <strong>Pastor:</strong> (555) 123-4568
-                      <br />
-                      <strong>Emergency:</strong> (555) 123-4569
+                      <strong>Pastor:</strong> 08034012927
+                     
                     </p>
                   </div>
                 </motion.div>
@@ -2430,10 +2429,7 @@ export default function Home() {
                     </div>
                     <p className="text-muted mb-0">
                       <strong>General:</strong> info@graceofgodchurch.org
-                      <br />
-                      <strong>Pastor:</strong> pastor@graceofgodchurch.org
-                      <br />
-                      <strong>Events:</strong> events@graceofgodchurch.org
+            
                     </p>
                   </div>
                 </motion.div>
@@ -2444,74 +2440,7 @@ export default function Home() {
             <div className="col-lg-6">
               <div className="row g-4">
                 {/* Service Times */}
-                <motion.div
-                  className="col-12"
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="contact-card p-4 rounded-3 bg-white shadow-sm h-100">
-                    <div className="d-flex align-items-center mb-4">
-                      <div
-                        className="contact-icon me-3"
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                          background:
-                            "linear-gradient(135deg, #d4af37, #ffd700)",
-                          borderRadius: "50%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <i className="fas fa-clock fa-lg text-dark"></i>
-                      </div>
-                      <h5
-                        className="text-dark"
-                        style={{ fontWeight: "600", marginBottom: "0" }}
-                      >
-                        Service Times
-                      </h5>
-                    </div>
-                    <div className="service-times">
-                      <div className="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <span className="text-dark">
-                          <strong>Sunday Morning Worship</strong>
-                        </span>
-                        <span style={{ color: "#d4af37", fontWeight: "500" }}>
-                          10:00 AM
-                        </span>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <span className="text-dark">
-                          <strong>Sunday School</strong>
-                        </span>
-                        <span style={{ color: "#d4af37", fontWeight: "500" }}>
-                          9:00 AM
-                        </span>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <span className="text-dark">
-                          <strong>Wednesday Prayer & Bible Study</strong>
-                        </span>
-                        <span style={{ color: "#d4af37", fontWeight: "500" }}>
-                          7:00 PM
-                        </span>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span className="text-dark">
-                          <strong>Friday Youth Worship</strong>
-                        </span>
-                        <span style={{ color: "#d4af37", fontWeight: "500" }}>
-                          7:00 PM
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+        
 
                 {/* Office Hours */}
                 <motion.div
@@ -2548,15 +2477,15 @@ export default function Home() {
                     </div>
                     <div className="office-hours">
                       <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span className="text-dark">Monday - Thursday</span>
+                        <span className="text-dark">Tuesday</span>
                         <span style={{ color: "#d4af37", fontWeight: "500" }}>
-                          9:00 AM - 5:00 PM
+                          10:00 AM -6:00 PM
                         </span>
                       </div>
                       <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span className="text-dark">Friday</span>
+                        <span className="text-dark">Thursday</span>
                         <span style={{ color: "#d4af37", fontWeight: "500" }}>
-                          9:00 AM - 3:00 PM
+                          9:00 AM - 4:00 PM
                         </span>
                       </div>
                       <div className="d-flex justify-content-between align-items-center">
@@ -3171,265 +3100,7 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-      {/* News & Announcements Section */}
-      <section
-        id="news"
-        className="py-5"
-        style={{
-          background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-        }}
-      >
-        <div className="container">
-          <motion.div
-            className="text-center mb-5"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2
-              className="section-heading mb-3"
-              style={{ color: "#2c3e50", fontWeight: "700", fontSize: "2rem" }}
-            >
-              News & Announcements
-            </h2>
-            <p
-              className="lead mb-4"
-              style={{ color: "#6c757d", fontSize: "1.2rem" }}
-            >
-              Stay connected with the latest updates, events, and announcements
-              from our church community.
-            </p>
-            <div
-              style={{
-                width: "60px",
-                height: "3px",
-                background: "linear-gradient(90deg, #d4af37, #ffd700)",
-                margin: "0 auto",
-              }}
-            ></div>
-          </motion.div>
 
-          <div className="row g-4">
-            {/* Featured Announcement */}
-            <motion.div
-              className="col-lg-8"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="featured-news bg-white p-4 rounded-3 shadow-sm">
-                <div className="d-flex align-items-center mb-3">
-                  <div
-                    className="news-badge me-3"
-                    style={{
-                      background: "linear-gradient(135deg, #d4af37, #ffd700)",
-                      color: "#2c3e50",
-                      padding: "5px 12px",
-                      borderRadius: "20px",
-                      fontSize: "0.8rem",
-                      fontWeight: "600",
-                    }}
-                  >
-                    FEATURED
-                  </div>
-                  <small className="text-muted">
-                    January&nbsp;8,&nbsp;2026
-                  </small>
-                </div>
-                <h4 className="text-dark mb-3" style={{ fontWeight: "600" }}>
-                  Community Outreach Program Launch
-                </h4>
-                <p className="text-muted mb-3">
-                  We're excited to announce the launch of our new community
-                  outreach program! Starting next month, we'll be providing
-                  weekly meals to families in need, along with tutoring support
-                  for local children.
-                </p>
-                <div className="d-flex align-items-center">
-                  <i className="fas fa-user-circle text-muted me-2"></i>
-                  <small className="text-muted">
-                    Posted by Pastor John Smith
-                  </small>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Quick Announcements */}
-            <motion.div
-              className="col-lg-4"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="quick-announcements">
-                <motion.div
-                  className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="d-flex align-items-start">
-                    <div
-                      className="announcement-icon me-3"
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        background: "linear-gradient(135deg, #d4af37, #ffd700)",
-                        borderRadius: "50%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: "0",
-                      }}
-                    >
-                      <i className="fas fa-calendar-alt fa-sm text-dark"></i>
-                    </div>
-                    <div>
-                      <h6
-                        className="text-dark mb-1"
-                        style={{ fontWeight: "600" }}
-                      >
-                        Youth Retreat
-                      </h6>
-                      <p className="text-muted small mb-1">
-                        February&nbsp;15-17,&nbsp;2026
-                      </p>
-                      <small className="text-muted">
-                        Registration opens soon!
-                      </small>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="announcement-item bg-white p-3 rounded-3 shadow-sm mb-3"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="d-flex align-items-start">
-                    <div
-                      className="announcement-icon me-3"
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        background: "linear-gradient(135deg, #d4af37, #ffd700)",
-                        borderRadius: "50%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: "0",
-                      }}
-                    >
-                      <i className="fas fa-users fa-sm text-dark"></i>
-                    </div>
-                    <div>
-                      <h6
-                        className="text-dark mb-1"
-                        style={{ fontWeight: "600" }}
-                      >
-                        New Members Class
-                      </h6>
-                      <p className="text-muted small mb-1">
-                        Every Wednesday, 7:00 PM
-                      </p>
-                      <small className="text-muted">
-                        Starting January&nbsp;15th
-                      </small>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="announcement-item bg-white p-3 rounded-3 shadow-sm"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="d-flex align-items-start">
-                    <div
-                      className="announcement-icon me-3"
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        background: "linear-gradient(135deg, #d4af37, #ffd700)",
-                        borderRadius: "50%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: "0",
-                      }}
-                    >
-                      <i className="fas fa-heart fa-sm text-dark"></i>
-                    </div>
-                    <div>
-                      <h6
-                        className="text-dark mb-1"
-                        style={{ fontWeight: "600" }}
-                      >
-                        Food Drive Success
-                      </h6>
-                      <p className="text-muted small mb-1">
-                        Thank you for your generosity!
-                      </p>
-                      <small className="text-muted">
-                        Helped 50 families this month
-                      </small>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Newsletter Signup */}
-          <motion.div
-            className="newsletter-signup bg-white p-4 rounded-3 shadow-sm mt-5"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="row align-items-center">
-              <div className="col-lg-8">
-                <h4 className="text-dark mb-2" style={{ fontWeight: "600" }}>
-                  Stay Updated
-                </h4>
-                <p className="text-muted mb-0">
-                  Subscribe to our newsletter to receive weekly updates, event
-                  reminders, and inspirational messages.
-                </p>
-              </div>
-              <div className="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                <motion.button
-                  className="btn px-4 py-2"
-                  style={{
-                    background: "linear-gradient(135deg, #d4af37, #ffd700)",
-                    border: "none",
-                    color: "#2c3e50",
-                    fontWeight: "600",
-                    borderRadius: "25px",
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <i className="fas fa-envelope me-2"></i>Subscribe Now
-                </motion.button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Scroll to Top Button */}
       <button
